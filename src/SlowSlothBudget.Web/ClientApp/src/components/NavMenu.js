@@ -1,5 +1,6 @@
 import React from 'react';
 import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
+import LoginLink from './LoginLink'
 import './NavMenu.css';
 
 export default () => (
@@ -15,8 +16,8 @@ export default () => (
                 <NavItem>
                     <Glyphicon glyph='home' /> Home
                 </NavItem>
+                <LoginLink />
             </Nav>
         </Navbar.Collapse>
     </Navbar>
-
 );
