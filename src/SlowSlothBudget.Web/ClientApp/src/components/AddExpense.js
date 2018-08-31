@@ -3,6 +3,7 @@ import auth0Client from '../utils/Auth';
 import AmountInput from './AmountInput';
 import DateInput from "./DateInput";
 import CategoryInput from "./CategoryInput";
+import DescriptionInput from "./DescriptionInput";
 
 const AddExpense = () => (
     <div>
@@ -11,6 +12,7 @@ const AddExpense = () => (
         <AmountInput />
         <DateInput />
         <CategoryInput/>
+        <DescriptionInput/>
     </div>
 );
 
