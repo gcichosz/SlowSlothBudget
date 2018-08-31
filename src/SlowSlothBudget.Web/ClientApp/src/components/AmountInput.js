@@ -19,7 +19,8 @@ class AmountInput extends React.Component {
     render() {
         return (
             <div>
-                <input type="text" value={this.state.value} onChange={this.handleChange} />
+                <label htmlFor="amount-input">Amount</label>
+                <input type="text" id="amount-input" value={this.state.value} onChange={this.handleChange} />
                 <span> PLN</span>
             </div>
         )
