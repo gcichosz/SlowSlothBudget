@@ -10,10 +10,11 @@ class AddExpense extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {amount: '', date: moment()};
+        this.state = {amount: '', date: moment(), category: ''};
 
         this.handleAmountChange = this.handleAmountChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleCategoryChange = this.handleCategoryChange.bind(this);
     }
 
     handleAmountChange(value) {
@@ -29,6 +30,12 @@ class AddExpense extends React.Component {
         });
     }
 
+    handleCategoryChange(value) {
+        this.setState({
+            category: value
+        })
+    }
+
     render() {
         return (
             <div>
@@ -37,7 +44,7 @@ class AddExpense extends React.Component {
                     {auth0Client.isAuthenticated() ? <h2>Anonymous users shouldn't see this</h2> : ''}
                     <AmountInput amount={this.state.amount} onAmountChange={this.handleAmountChange} />
                     <DateInput date={this.state.date} onDateChanged={this.handleDateChange} />
-                    <CategoryInput />
+                    <CategoryInput category={this.state.category} onCategoryChanged={this.handleCategoryChange} />
                     <DescriptionInput />
                     <button type="submit">Add expense</button>
                 </form>
