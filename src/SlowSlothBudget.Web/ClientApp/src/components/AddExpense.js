@@ -10,11 +10,12 @@ class AddExpense extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {amount: '', date: moment(), category: ''};
+        this.state = {amount: '', date: moment(), category: '', description: ''};
 
         this.handleAmountChange = this.handleAmountChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
+        this.handleDescriptionChanged = this.handleDescriptionChanged.bind(this);
     }
 
     handleAmountChange(value) {
@@ -36,6 +37,12 @@ class AddExpense extends React.Component {
         })
     }
 
+    handleDescriptionChanged(value) {
+        this.setState({
+            description: value
+        })
+    }
+
     render() {
         return (
             <div>
@@ -45,7 +52,8 @@ class AddExpense extends React.Component {
                     <AmountInput amount={this.state.amount} onAmountChange={this.handleAmountChange} />
                     <DateInput date={this.state.date} onDateChanged={this.handleDateChange} />
                     <CategoryInput category={this.state.category} onCategoryChanged={this.handleCategoryChange} />
-                    <DescriptionInput />
+                    <DescriptionInput description={this.state.description}
+                                      onDescriptionChanged={this.handleDescriptionChanged} />
                     <button type="submit">Add expense</button>
                 </form>
             </div>
