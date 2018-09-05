@@ -16,6 +16,7 @@ class AddExpense extends React.Component {
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleDescriptionChanged = this.handleDescriptionChanged.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleAmountChange(value) {
@@ -48,11 +49,24 @@ class AddExpense extends React.Component {
         return !!amount && !!date && !!category;
     }
 
+    handleSubmit(event) {
+        event.preventDefault();
+
+        fetch('/api/expenses', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.state)
+        });
+    }
+
     render() {
         const disabled = !this.validateForm();
         return (
             <div>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <h1>Welcome to Slow Sloth Budget</h1>
                     {auth0Client.isAuthenticated() ? <h2>Anonymous users shouldn't see this</h2> : ''}
                     <AmountInput amount={this.state.amount} onAmountChange={this.handleAmountChange} />
