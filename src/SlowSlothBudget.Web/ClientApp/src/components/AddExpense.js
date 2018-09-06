@@ -57,6 +57,7 @@ class AddExpense extends React.Component {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${auth0Client.getIdToken()}`
             },
             body: JSON.stringify(this.state)
         });

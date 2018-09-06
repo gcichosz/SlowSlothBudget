@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SlowSlothBudget.Web.DAL;
 using SlowSlothBudget.Web.Models;
@@ -6,6 +7,7 @@ namespace SlowSlothBudget.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ExpensesController : ControllerBase
     {
         private readonly IExpensesRepository _expensesRepository;
