@@ -1,13 +1,14 @@
 import auth0 from 'auth0-js';
+import { auth0Config } from './Configuration';
 
 class Auth {
     constructor() {
         this.auth0 = new auth0.WebAuth({
-            domain: 'gcichosz.eu.auth0.com',
-            audience: 'https://slowslothbudget.com',
-            clientID: 'K6wxAanA9FNGhnjJxGVKVZmS5SV8ckCQ',
-            redirectUri: 'http://localhost:5000/callback',
-            responseType: 'token id_token'
+            domain: auth0Config.domain,
+            audience: auth0Config.audience,
+            clientID: auth0Config.clientID,
+            redirectUri: auth0Config.redirectUri,
+            responseType: auth0Config.responseType
         });
 
         this.getProfile = this.getProfile.bind(this);
