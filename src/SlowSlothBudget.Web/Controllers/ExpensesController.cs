@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SlowSlothBudget.Web.DAL;
-using SlowSlothBudget.Web.Models;
+using SlowSlothBudget.Web.Mappers;
+using SlowSlothBudget.Web.Models.Dtos;
 
 namespace SlowSlothBudget.Web.Controllers
 {
@@ -18,10 +19,10 @@ namespace SlowSlothBudget.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateExpense(Expense expense)
+        public IActionResult CreateExpense(ExpenseDto expenseDto)
         {
-            var createdExpense = _expensesRepository.Create(expense);
-            return CreatedAtAction(nameof(GetExpense), new {id = createdExpense.Id.ToString()}, createdExpense);
+            var createdExpense = _expensesRepository.Create(Mapper.Map(expenseDto));
+            return CreatedAtAction(nameof(GetExpense), new {id = createdExpense.Id.ToString()}, Mapper.Map(createdExpense));
         }
 
         [HttpGet]
