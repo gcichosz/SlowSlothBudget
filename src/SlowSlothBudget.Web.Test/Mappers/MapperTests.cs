@@ -63,7 +63,7 @@ namespace SlowSlothBudget.Web.Test.Mappers
         {
             var actualExpense = Mapper.Map(_expenseDtoSample, SampleUserId);
 
-            Assert.AreEqual(actualExpense.Id, _nullObjectId);
+            Assert.AreEqual(_nullObjectId, actualExpense.Id);
         }
 
         [Test]
@@ -92,7 +92,7 @@ namespace SlowSlothBudget.Web.Test.Mappers
         {
             var actualExpense = Mapper.Map(_expenseDtoSample, SampleUserId);
 
-            Assert.AreEqual(_mappedExpenseSample.OwnerUserId, SampleUserId);
+            Assert.AreEqual(_mappedExpenseSample.OwnerUserId, actualExpense.OwnerUserId);
         }
 
         [Test]
