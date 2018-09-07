@@ -10,7 +10,7 @@ namespace SlowSlothBudget.Web.Mappers
             return new Expense
             {
                 Amount = expenseDto.Amount,
-                Date = expenseDto.Date,
+                Date = expenseDto.Date.ToUniversalTime(),
                 Category = expenseDto.Category,
                 Description = expenseDto.Description,
                 OwnerUserId = userId
@@ -23,7 +23,7 @@ namespace SlowSlothBudget.Web.Mappers
             {
                 Id = expense.Id.ToString(),
                 Amount = expense.Amount,
-                Date = expense.Date,
+                Date = expense.Date.ToLocalTime(),
                 Category = expense.Category,
                 Description = expense.Description,
             };
