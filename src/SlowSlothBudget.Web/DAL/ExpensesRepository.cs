@@ -15,7 +15,7 @@ namespace SlowSlothBudget.Web.DAL
             var database = client.GetDatabase(options.Value.DatabaseName);
             _collection = database.GetCollection<Expense>(options.Value.CollectionName);
         }
-        
+
         public Expense Create(Expense expense)
         {
             _collection.InsertOne(expense);

@@ -11,7 +11,7 @@ namespace SlowSlothBudget.Web.Test.Mappers
     public class MapperTests
     {
         private static readonly DateTime SampleDate = new DateTime();
-        
+
         private const decimal SampleAmount = 1.23m;
         private const string SampleCategory = "sample_category";
         private const string SampleDescription = "sample description";
@@ -62,7 +62,7 @@ namespace SlowSlothBudget.Web.Test.Mappers
         public void Should_NotMapId_When_MappedFromExpenseDto()
         {
             var actualExpense = Mapper.Map(_expenseDtoSample, SampleUserId);
-            
+
             Assert.AreEqual(actualExpense.Id, _nullObjectId);
         }
 
@@ -70,7 +70,7 @@ namespace SlowSlothBudget.Web.Test.Mappers
         public void Should_MapToExpenseCorrectly_When_MappedFromExpenseDto()
         {
             var actualExpense = Mapper.Map(_expenseDtoSample, SampleUserId);
-            
+
             Assert.AreEqual(_mappedExpenseSample.Amount, actualExpense.Amount);
             Assert.AreEqual(_mappedExpenseSample.Date, actualExpense.Date);
             Assert.AreEqual(_mappedExpenseSample.Category, actualExpense.Category);
@@ -81,7 +81,7 @@ namespace SlowSlothBudget.Web.Test.Mappers
         public void Should_MapToExpenseDtoCorrectly_When_MappedFromExpense()
         {
             var actualExpenseDto = Mapper.Map(_expenseSample);
-            
+
             Assert.AreEqual(_mappedExpenseDtoSample.Id, actualExpenseDto.Id);
             Assert.AreEqual(_mappedExpenseDtoSample.Amount, actualExpenseDto.Amount);
             Assert.AreEqual(_mappedExpenseDtoSample.Date, actualExpenseDto.Date);
@@ -93,7 +93,7 @@ namespace SlowSlothBudget.Web.Test.Mappers
         public void Should_FillOwnerUserIdProperty_When_MappedFromExpenseDto()
         {
             var actualExpense = Mapper.Map(_expenseDtoSample, SampleUserId);
-            
+
             Assert.AreEqual(_mappedExpenseSample.OwnerUserId, SampleUserId);
         }
     }
