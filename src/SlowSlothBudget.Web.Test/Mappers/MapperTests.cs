@@ -16,8 +16,10 @@ namespace SlowSlothBudget.Web.Test.Mappers
         private const string SampleCategory = "sample_category";
         private const string SampleDescription = "sample description";
         private const string SampleIdStringified = "d3524543d93f446081d1acad";
+        private const string SampleUserId = "sample_user_id";
 
         private readonly ObjectId _nullObjectId = new ObjectId();
+
 
         private readonly Expense _mappedExpenseSample = new Expense
         {
@@ -25,7 +27,8 @@ namespace SlowSlothBudget.Web.Test.Mappers
             Amount = SampleAmount,
             Date = SampleDate,
             Category = SampleCategory,
-            Description = SampleDescription
+            Description = SampleDescription,
+            OwnerUserId = SampleUserId
         };
 
         private readonly ExpenseDto _expenseDtoSample = new ExpenseDto
@@ -58,7 +61,7 @@ namespace SlowSlothBudget.Web.Test.Mappers
         [Test]
         public void Should_NotMapId_When_MappedFromExpenseDto()
         {
-            var actualExpense = Mapper.Map(_expenseDtoSample);
+            var actualExpense = Mapper.Map(_expenseDtoSample, SampleUserId);
             
             Assert.AreEqual(actualExpense.Id, _nullObjectId);
         }
@@ -66,7 +69,7 @@ namespace SlowSlothBudget.Web.Test.Mappers
         [Test]
         public void Should_MapToExpenseCorrectly_When_MappedFromExpenseDto()
         {
-            var actualExpense = Mapper.Map(_expenseDtoSample);
+            var actualExpense = Mapper.Map(_expenseDtoSample, SampleUserId);
             
             Assert.AreEqual(_mappedExpenseSample.Amount, actualExpense.Amount);
             Assert.AreEqual(_mappedExpenseSample.Date, actualExpense.Date);
@@ -84,6 +87,14 @@ namespace SlowSlothBudget.Web.Test.Mappers
             Assert.AreEqual(_mappedExpenseDtoSample.Date, actualExpenseDto.Date);
             Assert.AreEqual(_mappedExpenseDtoSample.Category, actualExpenseDto.Category);
             Assert.AreEqual(_mappedExpenseDtoSample.Description, actualExpenseDto.Description);
+        }
+
+        [Test]
+        public void Should_FillOwnerUserIdProperty_When_MappedFromExpenseDto()
+        {
+            var actualExpense = Mapper.Map(_expenseDtoSample, SampleUserId);
+            
+            Assert.AreEqual(_mappedExpenseSample.OwnerUserId, SampleUserId);
         }
     }
 }

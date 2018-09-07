@@ -14,5 +14,7 @@ namespace SlowSlothBudget.Web.Models
         public string Category { get; set; }
 
         public string Description { get; set; }
+
+        public string OwnerUserId { get; set; }
     }
 }

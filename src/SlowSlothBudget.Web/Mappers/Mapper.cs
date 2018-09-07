@@ -5,14 +5,15 @@ namespace SlowSlothBudget.Web.Mappers
 {
     public static class Mapper
     {
-        public static Expense Map(ExpenseDto expenseDto)
+        public static Expense Map(ExpenseDto expenseDto, string userId)
         {
             return new Expense
             {
                 Amount = expenseDto.Amount,
                 Date = expenseDto.Date,
                 Category = expenseDto.Category,
-                Description = expenseDto.Description
+                Description = expenseDto.Description,
+                OwnerUserId = userId
             };
         }
 

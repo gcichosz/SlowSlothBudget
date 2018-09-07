@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SlowSlothBudget.Web.DAL;
@@ -21,8 +22,15 @@ namespace SlowSlothBudget.Web.Controllers
         [HttpPost]
         public IActionResult CreateExpense(ExpenseDto expenseDto)
         {
-            var createdExpense = _expensesRepository.Create(Mapper.Map(expenseDto));
-            return CreatedAtAction(nameof(GetExpense), new {id = createdExpense.Id.ToString()}, Mapper.Map(createdExpense));
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+
+            var createdExpense = _expensesRepository.Create(Mapper.Map(expenseDto, userId));
+            return CreatedAtAction(nameof(GetExpense), new {id = createdExpense.Id.ToString()},
+                Mapper.Map(createdExpense));
         }
 
         [HttpGet]
