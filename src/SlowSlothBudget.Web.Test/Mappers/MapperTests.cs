@@ -21,16 +21,6 @@ namespace SlowSlothBudget.Web.Test.Mappers
 
         private readonly ObjectId _nullObjectId = new ObjectId();
 
-        private readonly Expense _mappedExpenseSample = new Expense
-        {
-            Id = new ObjectId(),
-            Amount = SampleAmount,
-            Date = SampleUniversalDate,
-            Category = SampleCategory,
-            Description = SampleDescription,
-            OwnerUserId = SampleUserId
-        };
-
         private readonly ExpenseDto _expenseDtoSample = new ExpenseDto
         {
             Id = SampleIdStringified,
@@ -56,6 +46,16 @@ namespace SlowSlothBudget.Web.Test.Mappers
             Date = SampleLocalDate,
             Category = SampleCategory,
             Description = SampleDescription
+        };
+
+        private readonly Expense _mappedExpenseSample = new Expense
+        {
+            Id = new ObjectId(),
+            Amount = SampleAmount,
+            Date = SampleUniversalDate,
+            Category = SampleCategory,
+            Description = SampleDescription,
+            OwnerUserId = SampleUserId
         };
 
         [Test]
