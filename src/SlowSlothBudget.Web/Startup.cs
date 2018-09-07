@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Bson.Serialization.Conventions;
 using SlowSlothBudget.Web.Authorization;
 using SlowSlothBudget.Web.DAL;
 using SlowSlothBudget.Web.Options;
@@ -33,7 +34,6 @@ namespace SlowSlothBudget.Web
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
             }).AddJwtBearer(options =>
             {
                 options.Authority = domain;
@@ -65,7 +65,7 @@ namespace SlowSlothBudget.Web
             app.UseSpaStaticFiles();
 
             app.UseAuthentication();
-            
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -82,6 +82,9 @@ namespace SlowSlothBudget.Web
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+            var conventionPack = new ConventionPack {new CamelCaseElementNameConvention()};
+            ConventionRegistry.Register("camelCase", conventionPack, t => true);
         }
     }
 }
