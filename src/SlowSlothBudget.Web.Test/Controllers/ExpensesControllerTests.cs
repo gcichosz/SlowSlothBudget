@@ -8,6 +8,7 @@ using Moq;
 using NUnit.Framework;
 using SlowSlothBudget.Web.Controllers;
 using SlowSlothBudget.Web.DAL;
+using SlowSlothBudget.Web.Mappers;
 using SlowSlothBudget.Web.Models;
 using SlowSlothBudget.Web.Models.Dtos;
 
@@ -17,7 +18,6 @@ namespace SlowSlothBudget.Web.Test.Controllers
     public class ExpensesControllerTests
     {
         private static readonly DateTime SampleLocalDate = DateTime.Now;
-        private static readonly DateTime SampleUniversalDate = SampleLocalDate.ToUniversalTime();
 
         private const string SampleNameIdentifier = "sample_name_identified";
         private const decimal SampleAmount = 1.23m;
@@ -41,22 +41,28 @@ namespace SlowSlothBudget.Web.Test.Controllers
             }
         };
 
-        private readonly Expense _sampleExpense = new Expense
+        private readonly ExpenseDto _sampleExpenseDto = new ExpenseDto
         {
-            Id = new ObjectId(SampleIdStringified),
+            Id = SampleIdStringified,
             Amount = SampleAmount,
-            Date = SampleUniversalDate,
+            Date = SampleLocalDate,
             Category = SampleCategory,
             Description = SampleDescription
+        };
+
+        private readonly Expense _sampleExpense = new Expense
+        {
+            Id = new ObjectId(SampleIdStringified)
         };
 
         [Test]
         public void Should_ReturnUnauthorized_When_CreateExpenseWithoutNameIdentifierClaim()
         {
-            var expensesController = new ExpensesController(new Mock<IExpensesRepository>().Object)
-            {
-                ControllerContext = _controllerContextWithoutNameIdentifierClaim
-            };
+            var expensesController =
+                new ExpensesController(new Mock<IExpensesRepository>().Object, new Mock<IExpensesMapper>().Object)
+                {
+                    ControllerContext = _controllerContextWithoutNameIdentifierClaim
+                };
 
             var actualResult = expensesController.CreateExpense(new ExpenseDto());
             var unauthorizedResult = actualResult as UnauthorizedResult;
@@ -70,10 +76,11 @@ namespace SlowSlothBudget.Web.Test.Controllers
         {
             var expensesRepository = new Mock<IExpensesRepository>();
             expensesRepository.Setup(r => r.Create(It.IsAny<Expense>())).Returns(new Expense());
-            var expensesController = new ExpensesController(expensesRepository.Object)
-            {
-                ControllerContext = _controllerContextWithNameIdentifierClaim
-            };
+            var expensesController =
+                new ExpensesController(expensesRepository.Object, new Mock<IExpensesMapper>().Object)
+                {
+                    ControllerContext = _controllerContextWithNameIdentifierClaim
+                };
 
             var actualResult = expensesController.CreateExpense(new ExpenseDto());
             var createdResult = actualResult as CreatedAtActionResult;
@@ -86,11 +93,15 @@ namespace SlowSlothBudget.Web.Test.Controllers
         public void Should_ReturnCreatedExpense_When_CreateExpenseSuccessfully()
         {
             var expensesRepository = new Mock<IExpensesRepository>();
-            expensesRepository.Setup(r => r.Create(It.IsAny<Expense>())).Returns(_sampleExpense);
-            var expensesController = new ExpensesController(expensesRepository.Object)
-            {
-                ControllerContext = _controllerContextWithNameIdentifierClaim
-            };
+            expensesRepository.Setup(r => r.Create(It.IsAny<Expense>())).Returns(new Expense());
+            var expensesMapper = new Mock<IExpensesMapper>();
+            expensesMapper.Setup(m => m.Map(It.IsAny<ExpenseDto>(), It.IsAny<string>())).Returns(new Expense());
+            expensesMapper.Setup(m => m.Map(It.IsAny<Expense>())).Returns(_sampleExpenseDto);
+            var expensesController =
+                new ExpensesController(expensesRepository.Object, expensesMapper.Object)
+                {
+                    ControllerContext = _controllerContextWithNameIdentifierClaim
+                };
 
             var actualResult = expensesController.CreateExpense(new ExpenseDto());
             var createdResult = actualResult as CreatedAtActionResult;
@@ -105,14 +116,15 @@ namespace SlowSlothBudget.Web.Test.Controllers
         }
 
         [Test]
-        public void Should_UseCorrectCreatedActionLocationParameters_When_CreateExpenseSuccessfully()
+        public void lShould_UseCorrectCreatedActionLocationParameters_When_CreateExpenseSuccessfully()
         {
             var expensesRepository = new Mock<IExpensesRepository>();
             expensesRepository.Setup(r => r.Create(It.IsAny<Expense>())).Returns(_sampleExpense);
-            var expensesController = new ExpensesController(expensesRepository.Object)
-            {
-                ControllerContext = _controllerContextWithNameIdentifierClaim
-            };
+            var expensesController =
+                new ExpensesController(expensesRepository.Object, new Mock<IExpensesMapper>().Object)
+                {
+                    ControllerContext = _controllerContextWithNameIdentifierClaim
+                };
 
             var actualResult = expensesController.CreateExpense(new ExpenseDto());
             var createdResult = actualResult as CreatedAtActionResult;

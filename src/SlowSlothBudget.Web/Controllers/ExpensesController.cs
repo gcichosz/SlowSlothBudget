@@ -13,10 +13,12 @@ namespace SlowSlothBudget.Web.Controllers
     public class ExpensesController : ControllerBase
     {
         private readonly IExpensesRepository _expensesRepository;
+        private readonly IExpensesMapper _expensesMapper;
 
-        public ExpensesController(IExpensesRepository expensesRepository)
+        public ExpensesController(IExpensesRepository expensesRepository, IExpensesMapper expensesMapper)
         {
             _expensesRepository = expensesRepository;
+            _expensesMapper = expensesMapper;
         }
 
         [HttpPost]
@@ -28,9 +30,9 @@ namespace SlowSlothBudget.Web.Controllers
                 return Unauthorized();
             }
 
-            var createdExpense = _expensesRepository.Create(Mapper.Map(expenseDto, userId));
+            var createdExpense = _expensesRepository.Create(_expensesMapper.Map(expenseDto, userId));
             return CreatedAtAction(nameof(GetExpense), new {id = createdExpense.Id.ToString()},
-                Mapper.Map(createdExpense));
+                _expensesMapper.Map(createdExpense));
         }
 
         [HttpGet]

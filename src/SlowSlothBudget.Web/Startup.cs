@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson.Serialization.Conventions;
 using SlowSlothBudget.Web.Authorization;
 using SlowSlothBudget.Web.DAL;
+using SlowSlothBudget.Web.Mappers;
 using SlowSlothBudget.Web.Options;
 
 namespace SlowSlothBudget.Web
@@ -42,6 +43,7 @@ namespace SlowSlothBudget.Web
 
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
             services.AddTransient<IExpensesRepository, ExpensesRepository>();
+            services.AddSingleton<IExpensesMapper, ExpensesMapper>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });

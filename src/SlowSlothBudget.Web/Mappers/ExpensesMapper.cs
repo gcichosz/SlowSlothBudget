@@ -3,9 +3,9 @@ using SlowSlothBudget.Web.Models.Dtos;
 
 namespace SlowSlothBudget.Web.Mappers
 {
-    public static class Mapper
+    public class ExpensesMapper : IExpensesMapper
     {
-        public static Expense Map(ExpenseDto expenseDto, string userId)
+        public Expense Map(ExpenseDto expenseDto, string userId)
         {
             return new Expense
             {
@@ -17,7 +17,7 @@ namespace SlowSlothBudget.Web.Mappers
             };
         }
 
-        public static ExpenseDto Map(Expense expense)
+        public ExpenseDto Map(Expense expense)
         {
             return new ExpenseDto
             {

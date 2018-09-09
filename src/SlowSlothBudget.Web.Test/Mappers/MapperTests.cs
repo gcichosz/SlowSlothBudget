@@ -61,7 +61,9 @@ namespace SlowSlothBudget.Web.Test.Mappers
         [Test]
         public void Should_NotMapId_When_MappedFromExpenseDto()
         {
-            var actualExpense = Mapper.Map(_expenseDtoSample, SampleUserId);
+            var expensesMapper = new ExpensesMapper();
+
+            var actualExpense = expensesMapper.Map(_expenseDtoSample, SampleUserId);
 
             Assert.AreEqual(_nullObjectId, actualExpense.Id);
         }
@@ -69,7 +71,9 @@ namespace SlowSlothBudget.Web.Test.Mappers
         [Test]
         public void Should_MapSimplePropertiesToExpenseCorrectly_When_MappedFromExpenseDto()
         {
-            var actualExpense = Mapper.Map(_expenseDtoSample, SampleUserId);
+            var expensesMapper = new ExpensesMapper();
+
+            var actualExpense = expensesMapper.Map(_expenseDtoSample, SampleUserId);
 
             Assert.AreEqual(_mappedExpenseSample.Amount, actualExpense.Amount);
             Assert.AreEqual(_mappedExpenseSample.Category, actualExpense.Category);
@@ -79,7 +83,9 @@ namespace SlowSlothBudget.Web.Test.Mappers
         [Test]
         public void Should_MapSimplePropertiesToExpenseDtoCorrectly_When_MappedFromExpense()
         {
-            var actualExpenseDto = Mapper.Map(_expenseSample);
+            var expensesMapper = new ExpensesMapper();
+
+            var actualExpenseDto = expensesMapper.Map(_expenseSample);
 
             Assert.AreEqual(_mappedExpenseDtoSample.Id, actualExpenseDto.Id);
             Assert.AreEqual(_mappedExpenseDtoSample.Amount, actualExpenseDto.Amount);
@@ -90,7 +96,9 @@ namespace SlowSlothBudget.Web.Test.Mappers
         [Test]
         public void Should_FillOwnerUserIdProperty_When_MappedFromExpenseDto()
         {
-            var actualExpense = Mapper.Map(_expenseDtoSample, SampleUserId);
+            var expensesMapper = new ExpensesMapper();
+
+            var actualExpense = expensesMapper.Map(_expenseDtoSample, SampleUserId);
 
             Assert.AreEqual(_mappedExpenseSample.OwnerUserId, actualExpense.OwnerUserId);
         }
@@ -98,7 +106,9 @@ namespace SlowSlothBudget.Web.Test.Mappers
         [Test]
         public void Should_MapDateToUniversalTime_When_MappedFromExpenseDto()
         {
-            var actualExpense = Mapper.Map(_expenseDtoSample, SampleUserId);
+            var expensesMapper = new ExpensesMapper();
+
+            var actualExpense = expensesMapper.Map(_expenseDtoSample, SampleUserId);
 
             Assert.AreEqual(_mappedExpenseSample.Date, actualExpense.Date);
         }
@@ -106,7 +116,9 @@ namespace SlowSlothBudget.Web.Test.Mappers
         [Test]
         public void Should_MapDateToLocalTime_When_MappedFromExpense()
         {
-            var actualExpense = Mapper.Map(_expenseSample);
+            var expensesMapper = new ExpensesMapper();
+
+            var actualExpense = expensesMapper.Map(_expenseSample);
 
             Assert.AreEqual(_mappedExpenseDtoSample.Date, actualExpense.Date);
         }
