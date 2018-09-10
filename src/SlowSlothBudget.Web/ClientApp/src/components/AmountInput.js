@@ -13,9 +13,9 @@ class AmountInput extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className={this.props.displayError ? 'displayError' : ''}>
                 <label htmlFor="amount-input">Amount</label>
-                <input type="text" id="amount-input" value={this.props.amount} onChange={this.handleChange} required/>
+                <input type="text" id="amount-input" value={this.props.amount} onChange={this.handleChange} />
                 <span> PLN</span>
                 <span className='errorMessage'>Amount field is required</span>
             </div>

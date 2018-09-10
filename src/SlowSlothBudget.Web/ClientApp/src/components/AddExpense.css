@@ -1,8 +1,8 @@
-.displayErrors input:invalid {
+.displayErrors .displayError input {
     border-color: red;
 }
 
-.displayErrors .errorMessage {
+.displayErrors .displayError .errorMessage {
     display: block;
 }
 

@@ -22,7 +22,7 @@ class DateInput extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className={this.props.displayError ? 'displayError' : ''}>
                 <label htmlFor="date-input">Date</label>
                 <DatePicker
                     id="date-input"
@@ -32,7 +32,6 @@ class DateInput extends React.Component {
                     locale="en-gb"
                     dropdownMode="select"
                     dateFormat="DD.MM.YYYY"
-                    required
                 />
                 <span className='errorMessage'>Date field is required</span>
             </div>
