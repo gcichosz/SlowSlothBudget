@@ -44,11 +44,6 @@ class AddExpense extends React.Component {
         })
     }
 
-    validateForm() {
-        const {amount, date, category} = this.state;
-        return !!amount && !!date && !!category;
-    }
-
     handleSubmit(event) {
         event.preventDefault();
 
@@ -64,7 +59,6 @@ class AddExpense extends React.Component {
     }
 
     render() {
-        const disabled = !this.validateForm();
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
@@ -75,7 +69,7 @@ class AddExpense extends React.Component {
                     <CategoryInput category={this.state.category} onCategoryChanged={this.handleCategoryChange} />
                     <DescriptionInput description={this.state.description}
                                       onDescriptionChanged={this.handleDescriptionChanged} />
-                    <button type="submit" id='add-expense-button' disabled={disabled}>Add expense</button>
+                    <button type="submit" id='add-expense-button'>Add expense</button>
                 </form>
             </div>
 
