@@ -12,10 +12,12 @@ class AddExpense extends React.Component {
         super(props);
 
         this.state = {
-            amount: '',
-            date: moment(),
-            category: '',
-            description: '',
+            expense: {
+                amount: '',
+                date: moment(),
+                category: '',
+                description: '',
+            },
             submitted: false
         };
 
@@ -29,26 +31,28 @@ class AddExpense extends React.Component {
     handleAmountChange(value) {
         const currencyAmountRegex = /^\d+(([.,])\d{0,2})?$/;
         if (!value || currencyAmountRegex.test(value)) {
-            this.setState({amount: value});
+            let expense = {...this.state.expense};
+            expense.amount = value;
+            this.setState({expense: expense});
         }
     }
 
     handleDateChange(date) {
-        this.setState({
-            date: date
-        });
+        let expense = {...this.state.expense};
+        expense.date = date;
+        this.setState({expense: expense});
     }
 
     handleCategoryChange(value) {
-        this.setState({
-            category: value
-        });
+        let expense = {...this.state.expense};
+        expense.category = value;
+        this.setState({expense: expense});
     }
 
     handleDescriptionChanged(value) {
-        this.setState({
-            description: value
-        })
+        let expense = {...this.state.expense};
+        expense.description = value;
+        this.setState({expense: expense});
     }
 
     handleSubmit(event) {
@@ -56,7 +60,8 @@ class AddExpense extends React.Component {
 
         this.setState({submitted: true});
 
-        if (!this.state.amount || !this.state.date || !this.state.category) {
+        const expense = this.state.expense;
+        if (!expense.amount || !expense.date || !expense.category) {
             return;
         }
 
@@ -67,28 +72,29 @@ class AddExpense extends React.Component {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${auth0Client.getIdToken()}`
             },
-            body: JSON.stringify(this.state)
+            body: JSON.stringify(expense)
         });
     }
 
     render() {
-        const amountInvalid = !this.state.amount;
-        const dateInvalid = !this.state.date;
-        const categoryInvalid = !this.state.category;
-        const displayErrors = this.state.submitted && (!this.state.amount || !this.state.date || !this.state.category);
+        const expense = this.state.expense;
+        const amountInvalid = !expense.amount;
+        const dateInvalid = !expense.date;
+        const categoryInvalid = !expense.category;
+        const displayErrors = this.state.submitted && (!expense.amount || !expense.date || !expense.category);
         return (
             <div>
                 <form id='add-expense-form' onSubmit={this.handleSubmit}
                       className={displayErrors ? 'displayErrors' : ''}>
                     <h1>Welcome to Slow Sloth Budget</h1>
                     {auth0Client.isAuthenticated() ? <h2>Anonymous users shouldn't see this</h2> : ''}
-                    <AmountInput amount={this.state.amount} onAmountChange={this.handleAmountChange}
+                    <AmountInput amount={expense.amount} onAmountChange={this.handleAmountChange}
                                  displayError={amountInvalid} />
-                    <DateInput date={this.state.date} onDateChanged={this.handleDateChange}
+                    <DateInput date={expense.date} onDateChanged={this.handleDateChange}
                                displayError={dateInvalid} />
-                    <CategoryInput category={this.state.category} onCategoryChanged={this.handleCategoryChange}
+                    <CategoryInput category={expense.category} onCategoryChanged={this.handleCategoryChange}
                                    displayError={categoryInvalid} />
-                    <DescriptionInput description={this.state.description}
+                    <DescriptionInput description={expense.description}
                                       onDescriptionChanged={this.handleDescriptionChanged} />
                     <button type="submit" id='add-expense-button'>Add expense</button>
                 </form>
