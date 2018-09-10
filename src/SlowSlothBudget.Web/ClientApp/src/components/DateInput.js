@@ -32,7 +32,9 @@ class DateInput extends React.Component {
                     locale="en-gb"
                     dropdownMode="select"
                     dateFormat="DD.MM.YYYY"
+                    required
                 />
+                <span className='errorMessage'>Date field is required</span>
             </div>
         )
     }

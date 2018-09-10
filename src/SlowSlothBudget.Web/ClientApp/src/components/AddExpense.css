@@ -1,0 +1,12 @@
+.displayErrors input:invalid {
+    border-color: red;
+}
+
+.displayErrors .errorMessage {
+    display: block;
+}
+
+.errorMessage {
+    display: none;
+    color: red;
+}

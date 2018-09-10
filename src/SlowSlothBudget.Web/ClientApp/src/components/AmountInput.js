@@ -15,8 +15,9 @@ class AmountInput extends React.Component {
         return (
             <div>
                 <label htmlFor="amount-input">Amount</label>
-                <input type="text" id="amount-input" value={this.props.amount} onChange={this.handleChange} />
+                <input type="text" id="amount-input" value={this.props.amount} onChange={this.handleChange} required/>
                 <span> PLN</span>
+                <span className='errorMessage'>Amount field is required</span>
             </div>
         )
     }

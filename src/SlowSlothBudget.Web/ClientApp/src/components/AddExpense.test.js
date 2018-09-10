@@ -49,3 +49,29 @@ it('accepts amount values in amount input', () => {
 
     expect(wrapper.find('#amount-input').props().value).toEqual(amountInput);
 });
+
+it('adds displayErrors class to form when invalid form submitted', () => {
+    const wrapper = shallow(<AddExpense />);
+
+    wrapper.find('form').simulate('submit', {
+        target: {
+            checkValidity: () => false
+        },
+        preventDefault: jest.fn()
+    });
+
+    expect(wrapper.find('form').hasClass('displayErrors')).toEqual(true);
+});
+
+it('does not add displayErrors class to form when valid form submitted', () => {
+    const wrapper = shallow(<AddExpense />);
+
+    wrapper.find('form').simulate('submit', {
+        target: {
+            checkValidity: () => true
+        },
+        preventDefault: jest.fn()
+    });
+
+    expect(wrapper.find('form').hasClass('displayErrors')).toEqual(false);
+});

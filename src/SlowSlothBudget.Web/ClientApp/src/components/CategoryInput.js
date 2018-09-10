@@ -15,7 +15,9 @@ class CategoryInput extends React.Component {
         return (
             <div>
                 <label htmlFor="category-input">Category</label>
-                <input type="text" id="category-input" value={this.props.category} onChange={this.handleChange} />
+                <input type="text" id="category-input" value={this.props.category} onChange={this.handleChange}
+                       required />
+                <span className='errorMessage'>Category field is required</span>
             </div>
         )
     }

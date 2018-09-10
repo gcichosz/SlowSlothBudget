@@ -5,12 +5,13 @@ import AmountInput from './AmountInput';
 import DateInput from "./DateInput";
 import CategoryInput from "./CategoryInput";
 import DescriptionInput from "./DescriptionInput";
+import './AddExpense.css'
 
 class AddExpense extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {amount: '', date: moment(), category: '', description: ''};
+        this.state = {amount: '', date: moment(), category: '', description: '', displayErrors: false};
 
         this.handleAmountChange = this.handleAmountChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
@@ -47,6 +48,11 @@ class AddExpense extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
+        if (!event.target.checkValidity()) {
+            this.setState({displayErrors: true});
+            return;
+        }
+
         fetch('/api/expenses', {
             method: 'POST',
             headers: {
@@ -56,12 +62,15 @@ class AddExpense extends React.Component {
             },
             body: JSON.stringify(this.state)
         });
+        this.setState({displayErrors: false});
     }
 
     render() {
+        const {displayErrors} = this.state;
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <form id='add-expense-form' onSubmit={this.handleSubmit} noValidate
+                      className={displayErrors ? 'displayErrors' : ''}>
                     <h1>Welcome to Slow Sloth Budget</h1>
                     {auth0Client.isAuthenticated() ? <h2>Anonymous users shouldn't see this</h2> : ''}
                     <AmountInput amount={this.state.amount} onAmountChange={this.handleAmountChange} />
@@ -72,7 +81,6 @@ class AddExpense extends React.Component {
                     <button type="submit" id='add-expense-button'>Add expense</button>
                 </form>
             </div>
-
         )
     }
 }
