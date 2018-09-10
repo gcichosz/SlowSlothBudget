@@ -32,7 +32,7 @@ class AddExpense extends React.Component {
         const currencyAmountRegex = /^\d+(([.,])\d{0,2})?$/;
         if (!value || currencyAmountRegex.test(value)) {
             let expense = {...this.state.expense};
-            expense.amount = value;
+            expense.amount = value.replace(/,/g, '.');
             this.setState({expense: expense});
         }
     }

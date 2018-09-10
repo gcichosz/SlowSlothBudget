@@ -36,6 +36,21 @@ it('does not accept non amount values in amount input', () => {
     expect(wrapper.find('#amount-input').props().value).toEqual('');
 });
 
+it('replaces \',\' characters with \'.\' in amount input', () => {
+    let commaSeparatedNumber = '1,23';
+    let dotSeparatedNumber = '1.23';
+    const event = {
+        preventDefault() {
+        },
+        target: {value: commaSeparatedNumber}
+    };
+    const wrapper = mount(<AddExpense />);
+
+    wrapper.find('#amount-input').simulate('change', event);
+
+    expect(wrapper.find('#amount-input').props().value).toEqual(dotSeparatedNumber);
+});
+
 it('accepts amount values in amount input', () => {
     let amountInput = '123.45';
     const event = {
