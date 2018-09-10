@@ -22,7 +22,7 @@ it('renders authenticated users message to authenticated user', () => {
     expect(wrapper.contains(welcome)).toEqual(true);
 });
 
-it('should not accept non amount values in amount input', () => {
+it('does not accept non amount values in amount input', () => {
     let notAmountInput = 'not-amount';
     const event = {
         preventDefault() {
@@ -36,8 +36,8 @@ it('should not accept non amount values in amount input', () => {
     expect(wrapper.find('#amount-input').props().value).toEqual('');
 });
 
-it('should accept amount values in amount input', () => {
-    let amountInput = '123,45';
+it('accepts amount values in amount input', () => {
+    let amountInput = '123.45';
     const event = {
         preventDefault() {
         },
