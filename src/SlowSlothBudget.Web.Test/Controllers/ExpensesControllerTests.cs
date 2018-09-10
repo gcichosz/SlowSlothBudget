@@ -26,20 +26,8 @@ namespace SlowSlothBudget.Web.Test.Controllers
         private const string SampleIdStringified = "d3524543d93f446081d1acad";
         private const string ExpenseApiGetActionName = "GetExpense";
         private const string RouteIdParameterName = "id";
-
-        private readonly ControllerContext _controllerContextWithoutNameIdentifierClaim = new ControllerContext
-            {HttpContext = new DefaultHttpContext {User = new ClaimsPrincipal()}};
-
-        private readonly ControllerContext _controllerContextWithNameIdentifierClaim = new ControllerContext
-        {
-            HttpContext = new DefaultHttpContext
-            {
-                User = new ClaimsPrincipal(new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, SampleNameIdentifier),
-                }))
-            }
-        };
+        private const string ErrorKey = "ErrorKey";
+        private const string ErrorMessage = "ErrorMessage";
 
         private readonly ExpenseDto _sampleExpenseDto = new ExpenseDto
         {
@@ -55,14 +43,42 @@ namespace SlowSlothBudget.Web.Test.Controllers
             Id = new ObjectId(SampleIdStringified)
         };
 
+        private static ExpensesController CreateExpensesControllerWithoutNameIdentifierClaim(
+            IExpensesRepository expensesRepository,
+            IExpensesMapper expensesMapper)
+        {
+            return new ExpensesController(expensesRepository, expensesMapper)
+            {
+                ControllerContext = new ControllerContext
+                    {HttpContext = new DefaultHttpContext {User = new ClaimsPrincipal()}}
+            };
+        }
+
+        private static ExpensesController CreateExpensesControllerWithNameIdentifierClaim(
+            IExpensesRepository expensesRepository,
+            IExpensesMapper expensesMapper)
+        {
+            return new ExpensesController(expensesRepository, expensesMapper)
+            {
+                ControllerContext = new ControllerContext
+                {
+                    HttpContext = new DefaultHttpContext
+                    {
+                        User = new ClaimsPrincipal(new ClaimsIdentity(new[]
+                        {
+                            new Claim(ClaimTypes.NameIdentifier, SampleNameIdentifier),
+                        }))
+                    }
+                }
+            };
+        }
+
         [Test]
         public void Should_ReturnUnauthorized_When_CreateExpenseWithoutNameIdentifierClaim()
         {
             var expensesController =
-                new ExpensesController(new Mock<IExpensesRepository>().Object, new Mock<IExpensesMapper>().Object)
-                {
-                    ControllerContext = _controllerContextWithoutNameIdentifierClaim
-                };
+                CreateExpensesControllerWithoutNameIdentifierClaim(new Mock<IExpensesRepository>().Object,
+                    new Mock<IExpensesMapper>().Object);
 
             var actualResult = expensesController.CreateExpense(new ExpenseDto());
             var unauthorizedResult = actualResult as UnauthorizedResult;
@@ -77,10 +93,8 @@ namespace SlowSlothBudget.Web.Test.Controllers
             var expensesRepository = new Mock<IExpensesRepository>();
             expensesRepository.Setup(r => r.Create(It.IsAny<Expense>())).Returns(new Expense());
             var expensesController =
-                new ExpensesController(expensesRepository.Object, new Mock<IExpensesMapper>().Object)
-                {
-                    ControllerContext = _controllerContextWithNameIdentifierClaim
-                };
+                CreateExpensesControllerWithNameIdentifierClaim(expensesRepository.Object,
+                    new Mock<IExpensesMapper>().Object);
 
             var actualResult = expensesController.CreateExpense(new ExpenseDto());
             var createdResult = actualResult as CreatedAtActionResult;
@@ -98,10 +112,7 @@ namespace SlowSlothBudget.Web.Test.Controllers
             expensesMapper.Setup(m => m.Map(It.IsAny<ExpenseDto>(), It.IsAny<string>())).Returns(new Expense());
             expensesMapper.Setup(m => m.Map(It.IsAny<Expense>())).Returns(_sampleExpenseDto);
             var expensesController =
-                new ExpensesController(expensesRepository.Object, expensesMapper.Object)
-                {
-                    ControllerContext = _controllerContextWithNameIdentifierClaim
-                };
+                CreateExpensesControllerWithNameIdentifierClaim(expensesRepository.Object, expensesMapper.Object);
 
             var actualResult = expensesController.CreateExpense(new ExpenseDto());
             var createdResult = actualResult as CreatedAtActionResult;
@@ -116,15 +127,13 @@ namespace SlowSlothBudget.Web.Test.Controllers
         }
 
         [Test]
-        public void lShould_UseCorrectCreatedActionLocationParameters_When_CreateExpenseSuccessfully()
+        public void Should_UseCorrectCreatedActionLocationParameters_When_CreateExpenseSuccessfully()
         {
             var expensesRepository = new Mock<IExpensesRepository>();
             expensesRepository.Setup(r => r.Create(It.IsAny<Expense>())).Returns(_sampleExpense);
             var expensesController =
-                new ExpensesController(expensesRepository.Object, new Mock<IExpensesMapper>().Object)
-                {
-                    ControllerContext = _controllerContextWithNameIdentifierClaim
-                };
+                CreateExpensesControllerWithNameIdentifierClaim(expensesRepository.Object,
+                    new Mock<IExpensesMapper>().Object);
 
             var actualResult = expensesController.CreateExpense(new ExpenseDto());
             var createdResult = actualResult as CreatedAtActionResult;
@@ -132,6 +141,21 @@ namespace SlowSlothBudget.Web.Test.Controllers
             Assert.IsNotNull(createdResult);
             Assert.AreEqual(ExpenseApiGetActionName, createdResult.ActionName);
             Assert.AreEqual(SampleIdStringified, createdResult.RouteValues[RouteIdParameterName]);
+        }
+
+        [Test]
+        public void Should_ReturnBadRequest_When_CreateExpenseModelStateInvalid()
+        {
+            var expensesController = CreateExpensesControllerWithNameIdentifierClaim(
+                new Mock<IExpensesRepository>().Object,
+                new Mock<IExpensesMapper>().Object);
+            expensesController.ModelState.AddModelError(ErrorKey, ErrorMessage);
+
+            var actualResult = expensesController.CreateExpense(new ExpenseDto());
+            var badRequestResult = actualResult as BadRequestResult;
+
+            Assert.IsNotNull(badRequestResult);
+            Assert.AreEqual((int) HttpStatusCode.BadRequest, badRequestResult.StatusCode);
         }
     }
 }
