@@ -16,10 +16,7 @@ class AddExpense extends React.Component {
             date: moment(),
             category: '',
             description: '',
-            amountValid: false,
-            dateValid: true,
-            categoryValid: false,
-            displayErrors: false
+            submitted: false
         };
 
         this.handleAmountChange = this.handleAmountChange.bind(this);
@@ -32,21 +29,19 @@ class AddExpense extends React.Component {
     handleAmountChange(value) {
         const currencyAmountRegex = /^\d+(([.,])\d{0,2})?$/;
         if (!value || currencyAmountRegex.test(value)) {
-            this.setState({amount: value, amountValid: !!value});
+            this.setState({amount: value});
         }
     }
 
     handleDateChange(date) {
         this.setState({
-            date: date,
-            dateValid: !!date
+            date: date
         });
     }
 
     handleCategoryChange(value) {
         this.setState({
-            category: value,
-            categoryValid: !!value
+            category: value
         });
     }
 
@@ -59,8 +54,9 @@ class AddExpense extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        if (!this.state.amountValid || !this.state.dateValid || !this.state.categoryValid) {
-            this.setState({displayErrors: true});
+        this.setState({submitted: true});
+
+        if (!this.state.amount || !this.state.date || !this.state.category) {
             return;
         }
 
@@ -73,22 +69,25 @@ class AddExpense extends React.Component {
             },
             body: JSON.stringify(this.state)
         });
-        this.setState({displayErrors: false});
     }
 
     render() {
+        const amountInvalid = !this.state.amount;
+        const dateInvalid = !this.state.date;
+        const categoryInvalid = !this.state.category;
+        const displayErrors = this.state.submitted && (!this.state.amount || !this.state.date || !this.state.category);
         return (
             <div>
                 <form id='add-expense-form' onSubmit={this.handleSubmit}
-                      className={this.state.displayErrors ? 'displayErrors' : ''}>
+                      className={displayErrors ? 'displayErrors' : ''}>
                     <h1>Welcome to Slow Sloth Budget</h1>
                     {auth0Client.isAuthenticated() ? <h2>Anonymous users shouldn't see this</h2> : ''}
                     <AmountInput amount={this.state.amount} onAmountChange={this.handleAmountChange}
-                                 displayError={!this.state.amountValid} />
+                                 displayError={amountInvalid} />
                     <DateInput date={this.state.date} onDateChanged={this.handleDateChange}
-                               displayError={!this.state.dateValid} />
+                               displayError={dateInvalid} />
                     <CategoryInput category={this.state.category} onCategoryChanged={this.handleCategoryChange}
-                                   displayError={!this.state.categoryValid} />
+                                   displayError={categoryInvalid} />
                     <DescriptionInput description={this.state.description}
                                       onDescriptionChanged={this.handleDescriptionChanged} />
                     <button type="submit" id='add-expense-button'>Add expense</button>
