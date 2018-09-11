@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import AddExpense from './AddExpense';
 
 import Auth from '../utils/Auth';
@@ -23,61 +23,39 @@ it('renders authenticated users message to authenticated user', () => {
 });
 
 it('does not accept non amount values in amount input', () => {
-    let notAmountInput = 'not-amount';
-    const event = {
-        preventDefault() {
-        },
-        target: {value: notAmountInput}
-    };
-    const wrapper = mount(<AddExpense />);
+    const notAmountInput = 'not-amount';
+    const wrapper = shallow(<AddExpense />);
 
-    wrapper.find('#amount-input').simulate('change', event);
+    wrapper.instance().handleAmountChange(notAmountInput);
 
-    expect(wrapper.find('#amount-input').props().value).toEqual('');
+    expect(wrapper.state('expense').amount).toEqual('');
 });
 
 it('replaces \',\' characters with \'.\' in amount input', () => {
-    let commaSeparatedNumber = '1,23';
-    let dotSeparatedNumber = '1.23';
-    const event = {
-        preventDefault() {
-        },
-        target: {value: commaSeparatedNumber}
-    };
-    const wrapper = mount(<AddExpense />);
+    const commaSeparatedNumber = '1,23';
+    const dotSeparatedNumber = '1.23';
+    const wrapper = shallow(<AddExpense />);
 
-    wrapper.find('#amount-input').simulate('change', event);
+    wrapper.instance().handleAmountChange(commaSeparatedNumber);
 
-    expect(wrapper.find('#amount-input').props().value).toEqual(dotSeparatedNumber);
+    expect(wrapper.state('expense').amount).toEqual(dotSeparatedNumber);
 });
 
 it('accepts amount values in amount input', () => {
-    let amountInput = '123.45';
-    const event = {
-        preventDefault() {
-        },
-        target: {value: amountInput}
-    };
-    const wrapper = mount(<AddExpense />);
+    const amountInput = '123.45';
+    const wrapper = shallow(<AddExpense />);
 
-    wrapper.find('#amount-input').simulate('change', event);
+    wrapper.instance().handleAmountChange(amountInput);
 
-    expect(wrapper.find('#amount-input').props().value).toEqual(amountInput);
+    expect(wrapper.state('expense').amount).toEqual(amountInput);
 });
 
 it('validates required inputs correctly', () => {
     const wrapper = mount(<AddExpense />);
-    const changeEvent = {
-        preventDefault() {
-        },
-        target: {value: ''}
-    };
-    const submitEvent = {
-        preventDefault: jest.fn()
-    };
 
-    wrapper.find('input#date-input').simulate('change', changeEvent);
-    wrapper.find('form').simulate('submit', submitEvent);
+    wrapper.instance().handleDateChange(null);
+    wrapper.instance().handleSubmit({preventDefault: jest.fn()});
+    wrapper.update();
 
     expect(wrapper.find('form').hasClass('displayErrors')).toEqual(true);
     expect(wrapper.find('AmountInput').props().displayError).toEqual(true);
