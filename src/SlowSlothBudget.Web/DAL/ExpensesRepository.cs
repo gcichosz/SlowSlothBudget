@@ -11,7 +11,7 @@ namespace SlowSlothBudget.Web.DAL
 
         public ExpensesRepository(IOptions<MongoDbOptions> options)
         {
-            var client = new MongoClient(options.Value.Server);
+            var client = new MongoClient(options.Value.ConnectionString);
             var database = client.GetDatabase(options.Value.DatabaseName);
             _collection = database.GetCollection<Expense>(options.Value.CollectionName);
         }
