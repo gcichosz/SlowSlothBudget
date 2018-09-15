@@ -7,3 +7,6 @@ install:
   - ./install.sh
 script:
   - ./build.sh
+cache:
+  directories:
+    - ./src/SlowSlothBudget.Web/ClientApp/node_modules
