@@ -1,6 +1,9 @@
 language: csharp
 mono: none
 dotnet: 2.1.302
+before_install:
+  - nvm install 8.12.0
+install:
+  - ./install.sh
 script:
-  - dotnet build -c Release ./src/SlowSlothBudget.Web.sln
-  - dotnet test -c Release ./src/SlowSlothBudget.Web.Test/SlowSlothBudget.Web.Test.csproj
+  - ./build.sh
