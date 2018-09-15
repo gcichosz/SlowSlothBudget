@@ -152,7 +152,7 @@ namespace SlowSlothBudget.Web.Test.Controllers
             expensesController.ModelState.AddModelError(ErrorKey, ErrorMessage);
 
             var actualResult = expensesController.CreateExpense(new ExpenseDto());
-            var badRequestResult = actualResult as BadRequestResult;
+            var badRequestResult = actualResult as BadRequestObjectResult;
 
             Assert.IsNotNull(badRequestResult);
             Assert.AreEqual((int) HttpStatusCode.BadRequest, badRequestResult.StatusCode);
