@@ -22,7 +22,7 @@ class LoginLink extends React.Component {
     render() {
         return (
             <li role="presentation" className="" onClick={this.handleClick}>
-                <a role="button" href="#">
+                <a role="button" href={auth0Client.isAuthenticated() ? "logout" : "login"}>
                     <span className="glyphicon glyphicon-user" /> {auth0Client.isAuthenticated() ? "Log out" : "Log in"}
                 </a>
             </li>
