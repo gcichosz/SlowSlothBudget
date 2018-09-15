@@ -6,7 +6,7 @@ import Auth from '../utils/Auth';
 jest.mock('../utils/Auth');
 
 it('renders log in to anonymous users', () => {
-    Auth.isAuthenticated.mockImplementationOnce(() => false);
+    Auth.isAuthenticated.mockImplementation(() => false);
     const wrapper = shallow(<LoginLink.WrappedComponent />);
     const login = "Log in";
     
@@ -14,9 +14,9 @@ it('renders log in to anonymous users', () => {
 });
 
 it('renders log out to authenticated user', () => {
-    Auth.isAuthenticated.mockImplementationOnce(() => true);
+    Auth.isAuthenticated.mockImplementation(() => true);
     const wrapper = shallow(<LoginLink.WrappedComponent />);
     const logout = "Log out";
-    
+
     expect(wrapper.contains(logout)).toEqual(true);
 });
