@@ -9,6 +9,7 @@ script:
   - ./build.sh
 deploy:
   provider: azure_web_apps
+  skip_cleanup: true
 cache:
   directories:
     - ./src/SlowSlothBudget.Web/ClientApp/node_modules
