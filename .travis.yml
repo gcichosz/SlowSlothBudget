@@ -13,3 +13,5 @@ deploy:
 cache:
   directories:
     - ./src/SlowSlothBudget.Web/ClientApp/node_modules
+notifications:
+  email: false
