@@ -6,10 +6,11 @@ before_install:
 install:
   - ./install.sh
 script:
-  - ./build.sh
+  - ./test.sh
+  - ./publish.sh
 deploy:
-  provider: azure_web_apps
-  skip_cleanup: true
+  provider: script
+  script: bash deploy.sh
 cache:
   directories:
     - ./src/SlowSlothBudget.Web/ClientApp/node_modules

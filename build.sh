@@ -1,13 +1,2 @@
 #!/usr/bin/env bash
-dotnet build -c Release ./src/SlowSlothBudget.Web.sln
-dotnet test -c Release ./src/SlowSlothBudget.Web.Test/SlowSlothBudget.Web.Test.csproj
-cd ./src/SlowSlothBudget.Web/ClientApp
-npm test
-if [[ $? -ne 0 ]] ; then
-    exit 1
-fi
-npm run build
-if [[ $? -ne 0 ]] ; then
-    exit 1
-fi
-cd $TRAVIS_BUILD_DIR
+dotnet publish -c Release -o ./publish ./src/SlowSlothBudget.Web/SlowSlothBudget.Web.csproj
