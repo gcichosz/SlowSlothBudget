@@ -124,13 +124,16 @@ class AddExpense extends React.Component {
                       className={displayFormErrors ? 'displayErrors' : ''}>
                     <h1>Welcome to Slow Sloth Budget</h1>
                     {auth0Client.isAuthenticated() ? <h2>Anonymous users shouldn't see this</h2> : ''}
-                    {this.state.saved ? <span>Expense saved</span> : ''}
+                    {this.state.saved ? <div className="alert alert-success">Expense saved</div> : ''}
                     {this.state.errors.badRequest ?
-                        <span>The expense you are trying to save contains errors. Please correct them.</span> : ''}
+                        <div className="alert alert-danger">The expense you are trying to save contains errors. Please
+                            correct them.</div> : ''}
                     {this.state.errors.unauthorized ?
-                        <span>You are not allowed to save expenses. Please log in.</span> : ''}
+                        <div className="alert alert-danger">You are not allowed to save expenses. Please log
+                            in.</div> : ''}
                     {this.state.errors.serverError ?
-                        <span>Your request could not be processed. Internal server error occured.</span> : ''}
+                        <div className="alert alert-danger">Your request could not be processed. Internal server error
+                            occured.</div> : ''}
                     <AmountInput amount={expense.amount} onAmountChange={this.handleAmountChange}
                                  displayError={amountInvalid && displayFormErrors} />
                     <DateInput date={expense.date} onDateChanged={this.handleDateChange}
