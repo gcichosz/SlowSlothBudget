@@ -12,11 +12,13 @@ class CategoryInput extends React.Component {
     }
 
     render() {
+        const hasErrorClass = this.props.displayError ? 'has-error' : '';
         return (
-            <div className={this.props.displayError ? 'displayError' : ''}>
+            <div className={`form-group ${hasErrorClass}`}>
                 <label htmlFor="category-input">Category</label>
-                <input type="text" id="category-input" value={this.props.category} onChange={this.handleChange} />
-                <span className='errorMessage'>Category field is required</span>
+                <input type="text" id="category-input" className="form-control" value={this.props.category}
+                       onChange={this.handleChange} placeholder="e.g. Groceries" />
+                <span className='help-block'>Category field is required</span>
             </div>
         )
     }

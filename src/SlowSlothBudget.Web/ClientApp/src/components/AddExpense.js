@@ -136,7 +136,7 @@ class AddExpense extends React.Component {
                     <DateInput date={expense.date} onDateChanged={this.handleDateChange}
                                displayError={dateInvalid && displayFormErrors} />
                     <CategoryInput category={expense.category} onCategoryChanged={this.handleCategoryChange}
-                                   displayError={categoryInvalid} />
+                                   displayError={categoryInvalid && displayFormErrors} />
                     <DescriptionInput description={expense.description}
                                       onDescriptionChanged={this.handleDescriptionChanged} />
                     <button type="submit" id='add-expense-button'>Save expense</button>
