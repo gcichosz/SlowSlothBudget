@@ -134,7 +134,7 @@ class AddExpense extends React.Component {
                     <AmountInput amount={expense.amount} onAmountChange={this.handleAmountChange}
                                  displayError={amountInvalid && displayFormErrors} />
                     <DateInput date={expense.date} onDateChanged={this.handleDateChange}
-                               displayError={dateInvalid} />
+                               displayError={dateInvalid && displayFormErrors} />
                     <CategoryInput category={expense.category} onCategoryChanged={this.handleCategoryChange}
                                    displayError={categoryInvalid} />
                     <DescriptionInput description={expense.description}

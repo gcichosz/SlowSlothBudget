@@ -1,7 +1,7 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
+import moment from "moment";
 import 'moment/locale/en-gb';
-
 import 'react-datepicker/dist/react-datepicker.css';
 
 class DateInput extends React.Component {
@@ -21,8 +21,9 @@ class DateInput extends React.Component {
     }
 
     render() {
+        const hasErrorClass = this.props.displayError ? 'has-error' : '';
         return (
-            <div className={this.props.displayError ? 'displayError' : ''}>
+            <div className={`form-group ${hasErrorClass}`}>
                 <label htmlFor="date-input">Date</label>
                 <DatePicker
                     id="date-input"
@@ -32,8 +33,10 @@ class DateInput extends React.Component {
                     locale="en-gb"
                     dropdownMode="select"
                     dateFormat="DD.MM.YYYY"
+                    className="form-control"
+                    placeholderText={`e.g. ${moment().format('DD.MM.YYYY')}`}
                 />
-                <span className='errorMessage'>Date field is required</span>
+                <span className='help-block'>Date field is required</span>
             </div>
         )
     }
