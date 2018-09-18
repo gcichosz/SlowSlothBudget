@@ -117,7 +117,7 @@ class AddExpense extends React.Component {
         const amountInvalid = !expense.amount;
         const dateInvalid = !expense.date;
         const categoryInvalid = !expense.category;
-        const displayFormErrors = this.state.submitted && (!expense.amount || !expense.date || !expense.category);
+        const displayFormErrors = this.state.submitted && (amountInvalid || dateInvalid || categoryInvalid);
         return (
             <div>
                 <form id='add-expense-form' onSubmit={this.handleSubmit}
