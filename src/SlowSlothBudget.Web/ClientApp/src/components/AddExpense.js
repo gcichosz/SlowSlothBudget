@@ -122,8 +122,7 @@ class AddExpense extends React.Component {
             <div>
                 <form id='add-expense-form' onSubmit={this.handleSubmit}
                       className={displayFormErrors ? 'displayErrors' : ''}>
-                    <h1>Welcome to Slow Sloth Budget</h1>
-                    {auth0Client.isAuthenticated() ? <h2>Anonymous users shouldn't see this</h2> : ''}
+                    <h1>Add expense</h1>
                     {this.state.saved ? <div className="alert alert-success">Expense saved</div> : ''}
                     {this.state.errors.badRequest ?
                         <div className="alert alert-danger">The expense you are trying to save contains errors. Please
