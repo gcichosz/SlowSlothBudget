@@ -139,9 +139,8 @@ class AddExpense extends React.Component {
                                    displayError={categoryInvalid && displayFormErrors} />
                     <DescriptionInput description={expense.description}
                                       onDescriptionChanged={this.handleDescriptionChanged} />
-                    <button type="submit" id='add-expense-button'>Save expense</button>
-                    {this.state.loading ? <span>Saving...</span> : ''}
-
+                    <button type="submit" id='add-expense-button' className="btn btn-primary">Save expense</button>
+                    {this.state.loading ? <span className="glyphicon glyphicon-usd" id="add-expense-loader" /> : ''}
                 </form>
             </div>
         )
