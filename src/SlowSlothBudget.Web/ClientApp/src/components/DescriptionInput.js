@@ -13,9 +13,10 @@ class DescriptionInput extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="form-group">
                 <label htmlFor="description-input">Description</label>
-                <textarea id="description-input" value={this.props.description} onChange={this.handleChange} />
+                <textarea id="description-input" className="form-control" value={this.props.description}
+                          onChange={this.handleChange} placeholder="e.g. Weekly groceries" />
             </div>
         )
     }
