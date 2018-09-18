@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import AddExpense from './AddExpense';
 
 import Auth from '../utils/Auth';
@@ -24,7 +24,7 @@ it('renders authenticated users message to authenticated user', () => {
 
 it('does not accept non amount values in amount input', () => {
     const notAmountInput = 'not-amount';
-    const wrapper = shallow(<AddExpense />);
+    const wrapper = mount(<AddExpense />);
 
     wrapper.instance().handleAmountChange(notAmountInput);
 
@@ -34,7 +34,7 @@ it('does not accept non amount values in amount input', () => {
 it('replaces \',\' characters with \'.\' in amount input', () => {
     const commaSeparatedNumber = '1,23';
     const dotSeparatedNumber = '1.23';
-    const wrapper = shallow(<AddExpense />);
+    const wrapper = mount(<AddExpense />);
 
     wrapper.instance().handleAmountChange(commaSeparatedNumber);
 
@@ -43,7 +43,7 @@ it('replaces \',\' characters with \'.\' in amount input', () => {
 
 it('accepts amount values in amount input', () => {
     const amountInput = '123.45';
-    const wrapper = shallow(<AddExpense />);
+    const wrapper = mount(<AddExpense />);
 
     wrapper.instance().handleAmountChange(amountInput);
 
