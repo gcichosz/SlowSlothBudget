@@ -33,6 +33,12 @@ class AddExpense extends React.Component {
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleDescriptionChanged = this.handleDescriptionChanged.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        this.amountInput = React.createRef();
+    }
+
+    componentDidMount() {
+        this.amountInput.current.focusAmountInput();
     }
 
     handleAmountChange(value) {
@@ -134,7 +140,7 @@ class AddExpense extends React.Component {
                         <div className="alert alert-danger">Your request could not be processed. Internal server error
                             occured.</div> : ''}
                     <AmountInput amount={expense.amount} onAmountChange={this.handleAmountChange}
-                                 displayError={amountInvalid && displayFormErrors} />
+                                 displayError={amountInvalid && displayFormErrors} ref={this.amountInput} />
                     <DateInput date={expense.date} onDateChanged={this.handleDateChange}
                                displayError={dateInvalid && displayFormErrors} />
                     <CategoryInput category={expense.category} onCategoryChanged={this.handleCategoryChange}

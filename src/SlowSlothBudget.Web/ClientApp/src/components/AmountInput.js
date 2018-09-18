@@ -5,10 +5,17 @@ class AmountInput extends React.Component {
         super(props);
 
         this.handleChange = this.handleChange.bind(this);
+
+        this.amountInput = React.createRef();
+        this.focusAmountInput = this.focusAmountInput.bind(this);
     }
 
     handleChange(event) {
         this.props.onAmountChange(event.target.value);
+    }
+
+    focusAmountInput() {
+        this.amountInput.current.focus();
     }
 
     render() {
@@ -19,7 +26,7 @@ class AmountInput extends React.Component {
                     <label htmlFor="amount-input">Amount</label>
                     <div className="input-group">
                         <input type="text" id="amount-input" className="form-control" value={this.props.amount}
-                               onChange={this.handleChange} placeholder="e.g. 1.23" />
+                               onChange={this.handleChange} placeholder="e.g. 1.23" ref={this.amountInput} />
                         <span className="input-group-addon">PLN</span>
                     </div>
                     <span className='help-block'>Amount field is required</span>
