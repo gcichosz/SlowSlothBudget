@@ -6,6 +6,7 @@ import DateInput from "./DateInput";
 import CategoryInput from "./CategoryInput";
 import DescriptionInput from "./DescriptionInput";
 import './AddExpense.css'
+import SaveExpenseButton from "./SaveExpenseButton";
 
 class AddExpense extends React.Component {
     constructor(props) {
@@ -147,8 +148,7 @@ class AddExpense extends React.Component {
                                    displayError={categoryInvalid && displayFormErrors} />
                     <DescriptionInput description={expense.description}
                                       onDescriptionChanged={this.handleDescriptionChanged} />
-                    <button type="submit" id='add-expense-button' className="btn btn-primary">Save expense</button>
-                    {this.state.loading ? <span className="glyphicon glyphicon-usd" id="add-expense-loader" /> : ''}
+                    <SaveExpenseButton loading={this.state.loading} />
                 </form>
             </div>
         )
