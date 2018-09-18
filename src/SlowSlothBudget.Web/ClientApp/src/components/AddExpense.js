@@ -132,7 +132,7 @@ class AddExpense extends React.Component {
                     {this.state.errors.serverError ?
                         <span>Your request could not be processed. Internal server error occured.</span> : ''}
                     <AmountInput amount={expense.amount} onAmountChange={this.handleAmountChange}
-                                 displayError={amountInvalid} />
+                                 displayError={amountInvalid && displayFormErrors} />
                     <DateInput date={expense.date} onDateChanged={this.handleDateChange}
                                displayError={dateInvalid} />
                     <CategoryInput category={expense.category} onCategoryChanged={this.handleCategoryChange}

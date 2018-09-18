@@ -12,13 +12,18 @@ class AmountInput extends React.Component {
     }
 
     render() {
+        const hasErrorClass = this.props.displayError ? 'has-error' : '';
         return (
-            <div className={this.props.displayError ? 'displayError' : ''}>
+            <div className={`form-group ${hasErrorClass}`}>
                 <label htmlFor="amount-input">Amount</label>
-                <input type="text" id="amount-input" value={this.props.amount} onChange={this.handleChange} />
-                <span> PLN</span>
-                <span className='errorMessage'>Amount field is required</span>
+                <div className="input-group">
+                    <input type="text" id="amount-input" className="form-control" value={this.props.amount}
+                           onChange={this.handleChange} placeholder="e.g. 1.23" />
+                    <span className="input-group-addon">PLN</span>
+                </div>
+                <span className='help-block'>Amount field is required</span>
             </div>
+
         )
     }
 }

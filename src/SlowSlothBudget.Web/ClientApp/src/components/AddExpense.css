@@ -1,12 +1,3 @@
-.displayErrors .displayError input {
-    border-color: red;
-}
+.displayErrors .has-error .help-block { display: block; }
 
-.displayErrors .displayError .errorMessage {
-    display: block;
-}
-
-.errorMessage {
-    display: none;
-    color: red;
-}
+.help-block { display: none; }
