@@ -1,11 +1,3 @@
-.displayErrors .has-error .help-block {
-    display: block;
-}
-
-.help-block {
-    display: none;
-}
-
 #add-expense-loader {
     animation: spin 2s linear infinite;
 }

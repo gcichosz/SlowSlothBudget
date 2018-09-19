@@ -29,7 +29,7 @@ class AmountInput extends React.Component {
                                onChange={this.handleChange} placeholder="e.g. 1.23" ref={this.amountInput} />
                         <span className="input-group-addon">PLN</span>
                     </div>
-                    <span className='help-block'>Amount field is required</span>
+                    {this.props.displayError ? <span className='help-block'>Amount field is required</span> : ''}
                 </div>
             </div>
         )

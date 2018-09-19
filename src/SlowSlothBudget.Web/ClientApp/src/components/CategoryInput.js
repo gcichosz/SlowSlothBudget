@@ -19,7 +19,7 @@ class CategoryInput extends React.Component {
                     <label htmlFor="category-input">Category</label>
                     <input type="text" id="category-input" className="form-control" value={this.props.category}
                            onChange={this.handleChange} placeholder="e.g. Groceries" />
-                    <span className='help-block'>Category field is required</span>
+                    {this.props.displayError ? <span className='help-block'>Category field is required</span> : ''}
                 </div>
             </div>
         )

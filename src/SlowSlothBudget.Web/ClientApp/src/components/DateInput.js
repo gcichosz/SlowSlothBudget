@@ -38,7 +38,7 @@ class DateInput extends React.Component {
                         className="form-control"
                         placeholderText={`e.g. ${moment().format('DD.MM.YYYY')}`}
                     />
-                    <span className='help-block'>Date field is required</span>
+                    {this.props.displayError ? <span className='help-block'>Date field is required</span> : ''}
                 </div>
             </div>
         )
