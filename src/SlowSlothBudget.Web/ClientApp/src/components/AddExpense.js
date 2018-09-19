@@ -132,11 +132,11 @@ class AddExpense extends React.Component {
                     <h1>Add expense</h1>
                     {this.state.saved ? <div className="alert alert-success">Expense saved</div> : ''}
                     {this.state.errors.badRequest ?
-                        <div className="alert alert-danger">The expense you are trying to save contains errors. Please
-                            correct them.</div> : ''}
+                        <div className="alert alert-danger">The expense couldn't be saved, because it is
+                            incorrect.</div> : ''}
                     {this.state.errors.unauthorized ?
-                        <div className="alert alert-danger">You are not allowed to save expenses. Please log
-                            in.</div> : ''}
+                        <div className="alert alert-danger">Only authenticated users are allowed to save
+                            expenses.</div> : ''}
                     {this.state.errors.serverError ?
                         <div className="alert alert-danger">Your request could not be processed. Internal server error
                             occured.</div> : ''}
