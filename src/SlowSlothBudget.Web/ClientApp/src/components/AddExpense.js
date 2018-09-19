@@ -1,12 +1,13 @@
 import React from 'react';
 import moment from "moment";
 import auth0Client from '../utils/Auth';
+import { Col, Row, Alert } from 'react-bootstrap';
 import AmountInput from './AmountInput';
 import DateInput from "./DateInput";
 import CategoryInput from "./CategoryInput";
 import DescriptionInput from "./DescriptionInput";
-import './AddExpense.css'
 import SaveExpenseButton from "./SaveExpenseButton";
+import './AddExpense.css'
 
 class AddExpense extends React.Component {
     constructor(props) {
@@ -125,19 +126,19 @@ class AddExpense extends React.Component {
         const dateInvalid = !expense.date;
         const categoryInvalid = !expense.category;
         return (
-            <div>
+            <Col sm={5} md={4} lg={3}>
                 <form id='add-expense-form' onSubmit={this.handleSubmit}>
-                    <h1>Add expense</h1>
-                    {this.state.saved ? <div className="alert alert-success">Expense saved</div> : ''}
-                    {this.state.errors.badRequest ?
-                        <div className="alert alert-danger">The expense couldn't be saved, because it is
-                            incorrect.</div> : ''}
-                    {this.state.errors.unauthorized ?
-                        <div className="alert alert-danger">Only authenticated users are allowed to save
-                            expenses.</div> : ''}
-                    {this.state.errors.serverError ?
-                        <div className="alert alert-danger">Your request could not be processed. Internal server error
-                            occured.</div> : ''}
+                    <Row>
+                        <h1>Add expense</h1>
+                    </Row>
+                    {this.state.saved && <Row><Alert bsStyle="success">Expense saved</Alert></Row>}
+                    {this.state.errors.badRequest &&
+                    <Row><Alert bsStyle="danger">The expense couldn't be saved, because it is incorrect.</Alert></Row>}
+                    {this.state.errors.unauthorized &&
+                    <Row><Alert bsStyle="danger">Only authenticated users are allowed to save expenses.</Alert></Row>}
+                    {this.state.errors.serverError &&
+                    <Row><Alert bsStyle="danger">Your request could not be processed. Internal server error
+                        occured.</Alert></Row>}
                     <AmountInput amount={expense.amount} onAmountChange={this.handleAmountChange}
                                  invalid={amountInvalid} feedback={this.state.submitted}
                                  ref={this.amountInput} />
@@ -149,7 +150,7 @@ class AddExpense extends React.Component {
                                       onDescriptionChanged={this.handleDescriptionChanged} />
                     <SaveExpenseButton loading={this.state.loading} />
                 </form>
-            </div>
+            </Col>
         )
     }
 }

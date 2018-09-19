@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Row, FormGroup, ControlLabel, InputGroup, FormControl, Glyphicon, HelpBlock } from 'react-bootstrap';
 
 class AmountInput extends React.Component {
     constructor(props) {
@@ -19,24 +20,23 @@ class AmountInput extends React.Component {
     }
 
     render() {
-        const validationClass = this.props.feedback ? this.props.invalid ? 'has-error' : 'has-success' : '';
-        const feedbackClass = this.props.feedback ? 'has-feedback' : '';
+        const validationState = this.props.feedback && (this.props.invalid ? 'error' : 'success');
         return (
-            <div className="row">
-                <div className={`form-group col-md-3 ${validationClass} ${feedbackClass}`}>
-                    <label htmlFor="amount-input" className="control-label">Amount</label>
-                    <div className="input-group">
-                        <span className="input-group-addon">PLN</span>
-                        <input type="text" id="amount-input" className="form-control" value={this.props.amount}
-                               onChange={this.handleChange} placeholder="e.g. 1.23" ref={this.amountInput} />
-                    </div>
-                    {this.props.feedback ? this.props.invalid ?
-                        <span className="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" /> :
-                        <span className="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" /> : ''}
-                    {this.props.feedback && this.props.invalid ?
-                        <span className='help-block'>Amount field is required</span> : ''}
-                </div>
-            </div>
+            <Row>
+                <FormGroup validationState={validationState} controlId="amount-input">
+                    <ControlLabel>Amount</ControlLabel>
+                    <InputGroup>
+                        <InputGroup.Addon>PLN</InputGroup.Addon>
+                        <FormControl type="text" value={this.props.amount} onChange={this.handleChange}
+                                     placeholder="e.g. 1.23" inputRef={this.amountInput} />
+                    </InputGroup>
+                    <FormControl.Feedback>
+                        <Glyphicon glyph={this.props.feedback && (this.props.invalid ? 'remove' : 'ok')} />
+                    </FormControl.Feedback>
+                    {this.props.feedback && this.props.invalid &&
+                    <HelpBlock className='help-block'>Amount field is required</HelpBlock>}
+                </FormGroup>
+            </Row>
         )
     }
 }

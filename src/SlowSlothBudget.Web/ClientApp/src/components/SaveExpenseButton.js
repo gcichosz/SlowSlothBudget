@@ -1,16 +1,15 @@
 import * as React from "react";
+import { Row, Glyphicon, Button } from 'react-bootstrap';
 
 class SaveExpenseButton extends React.Component {
     render() {
         return (
-            <div className="row">
-                <div className="col-md-2">
-                    <button type="submit" id='add-expense-button' className="btn btn-primary btn-block"
-                            disabled={this.props.loading}>{this.props.loading ?
-                        <span className="glyphicon glyphicon-usd" id="add-expense-loader" /> : 'Save expense'}</button>
-
-                </div>
-            </div>
+            <Row>
+                <Button type="submit" id='add-expense-button' bsStyle="primary"
+                        disabled={this.props.loading}>{this.props.loading ?
+                    <span>Saving expense <Glyphicon glyph="usd"
+                                                    id="add-expense-loader" /></span> : 'Save expense'}</Button>
+            </Row>
         )
     }
 }

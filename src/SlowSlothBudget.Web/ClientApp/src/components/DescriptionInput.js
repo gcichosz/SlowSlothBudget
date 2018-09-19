@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Row, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 class DescriptionInput extends React.Component {
     constructor(props) {
@@ -13,13 +14,13 @@ class DescriptionInput extends React.Component {
 
     render() {
         return (
-            <div className="row">
-                <div className="form-group col-md-3">
-                    <label htmlFor="description-input">Description (optional)</label>
-                    <textarea id="description-input" className="form-control" value={this.props.description}
-                              onChange={this.handleChange} placeholder="e.g. Weekly groceries" />
-                </div>
-            </div>
+            <Row>
+                <FormGroup controlId="description-input">
+                    <ControlLabel>Description (optional)</ControlLabel>
+                    <FormControl type="textarea" value={this.props.description} onChange={this.handleChange}
+                                 placeholder="e.g. Weekly groceries" />
+                </FormGroup>
+            </Row>
         )
     }
 }

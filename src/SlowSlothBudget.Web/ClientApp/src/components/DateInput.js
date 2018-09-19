@@ -1,6 +1,7 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import moment from "moment";
+import { Row, FormGroup, ControlLabel, FormControl, Glyphicon, HelpBlock } from 'react-bootstrap';
 import 'moment/locale/en-gb';
 import 'react-datepicker/dist/react-datepicker.css';
 import './DateInput.css'
@@ -22,12 +23,11 @@ class DateInput extends React.Component {
     }
 
     render() {
-        const validationClass = this.props.feedback ? this.props.invalid ? 'has-error' : 'has-success' : '';
-        const feedbackClass = this.props.feedback ? 'has-feedback' : '';
+        const validationState = this.props.feedback && (this.props.invalid ? 'error' : 'success');
         return (
-            <div className="row">
-                <div className={`form-group col-md-3 ${validationClass} ${feedbackClass}`}>
-                    <label htmlFor="date-input" className="control-label">Date</label>
+            <Row>
+                <FormGroup validationState={validationState} controlId="date-input">
+                    <ControlLabel>Date</ControlLabel>
                     <DatePicker
                         id="date-input"
                         selected={this.props.date}
@@ -39,13 +39,13 @@ class DateInput extends React.Component {
                         className="form-control"
                         placeholderText={`e.g. ${moment().format('DD.MM.YYYY')}`}
                     />
-                    {this.props.feedback ? this.props.invalid ?
-                        <span className="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" /> :
-                        <span className="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" /> : ''}
-                    {this.props.feedback && this.props.invalid ?
-                        <span className='help-block'>Date field is required</span> : ''}
-                </div>
-            </div>
+                    <FormControl.Feedback>
+                        <Glyphicon glyph={this.props.feedback && (this.props.invalid ? 'remove' : 'ok')} />
+                    </FormControl.Feedback>
+                    {this.props.feedback && this.props.invalid &&
+                    <HelpBlock className='help-block'>Date field is required</HelpBlock>}
+                </FormGroup>
+            </Row>
         )
     }
 }

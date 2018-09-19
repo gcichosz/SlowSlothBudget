@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Row, FormGroup, ControlLabel, FormControl, Glyphicon, HelpBlock } from 'react-bootstrap';
 
 class CategoryInput extends React.Component {
     constructor(props) {
@@ -12,21 +13,20 @@ class CategoryInput extends React.Component {
     }
 
     render() {
-        const validationClass = this.props.feedback ? this.props.invalid ? 'has-error' : 'has-success' : '';
-        const feedbackClass = this.props.feedback ? 'has-feedback' : '';
+        const validationState = this.props.feedback && (this.props.invalid ? 'error' : 'success');
         return (
-            <div className="row">
-                <div className={`form-group col-md-3 ${validationClass} ${feedbackClass}`}>
-                    <label htmlFor="category-input">Category</label>
-                    <input type="text" id="category-input" className="form-control" value={this.props.category}
-                           onChange={this.handleChange} placeholder="e.g. Groceries" />
-                    {this.props.feedback ? this.props.invalid ?
-                        <span className="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" /> :
-                        <span className="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" /> : ''}
-                    {this.props.feedback && this.props.invalid ?
-                        <span className='help-block'>Category field is required</span> : ''}
-                </div>
-            </div>
+            <Row>
+                <FormGroup validationState={validationState} controlId="category-input">
+                    <ControlLabel>Category</ControlLabel>
+                    <FormControl type="text" value={this.props.category} onChange={this.handleChange}
+                                 placeholder="e.g. Groceries" />
+                    <FormControl.Feedback>
+                        <Glyphicon glyph={this.props.feedback && (this.props.invalid ? 'remove' : 'ok')} />
+                    </FormControl.Feedback>
+                    {this.props.feedback && this.props.invalid &&
+                    <HelpBlock className='help-block'>Category field is required</HelpBlock>}
+                </FormGroup>
+            </Row>
         )
     }
 }
