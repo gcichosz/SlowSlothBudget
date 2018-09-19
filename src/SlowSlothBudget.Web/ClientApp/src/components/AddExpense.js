@@ -124,11 +124,9 @@ class AddExpense extends React.Component {
         const amountInvalid = !expense.amount;
         const dateInvalid = !expense.date;
         const categoryInvalid = !expense.category;
-        const displayFormErrors = this.state.submitted && (amountInvalid || dateInvalid || categoryInvalid);
         return (
             <div>
-                <form id='add-expense-form' onSubmit={this.handleSubmit}
-                      className={displayFormErrors ? 'displayErrors' : ''}>
+                <form id='add-expense-form' onSubmit={this.handleSubmit}>
                     <h1>Add expense</h1>
                     {this.state.saved ? <div className="alert alert-success">Expense saved</div> : ''}
                     {this.state.errors.badRequest ?
@@ -141,11 +139,12 @@ class AddExpense extends React.Component {
                         <div className="alert alert-danger">Your request could not be processed. Internal server error
                             occured.</div> : ''}
                     <AmountInput amount={expense.amount} onAmountChange={this.handleAmountChange}
-                                 displayError={amountInvalid && displayFormErrors} ref={this.amountInput} />
+                                 invalid={amountInvalid} feedback={this.state.submitted}
+                                 ref={this.amountInput} />
                     <DateInput date={expense.date} onDateChanged={this.handleDateChange}
-                               displayError={dateInvalid && displayFormErrors} />
+                               invalid={dateInvalid} feedback={this.state.submitted} />
                     <CategoryInput category={expense.category} onCategoryChanged={this.handleCategoryChange}
-                                   displayError={categoryInvalid && displayFormErrors} />
+                                   invalid={categoryInvalid} feedback={this.state.submitted} />
                     <DescriptionInput description={expense.description}
                                       onDescriptionChanged={this.handleDescriptionChanged} />
                     <SaveExpenseButton loading={this.state.loading} />

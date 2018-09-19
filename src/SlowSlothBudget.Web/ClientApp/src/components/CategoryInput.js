@@ -12,14 +12,19 @@ class CategoryInput extends React.Component {
     }
 
     render() {
-        const hasErrorClass = this.props.displayError ? 'has-error' : '';
+        const validationClass = this.props.feedback ? this.props.invalid ? 'has-error' : 'has-success' : '';
+        const feedbackClass = this.props.feedback ? 'has-feedback' : '';
         return (
             <div className="row">
-                <div className={`form-group col-md-3 ${hasErrorClass}`}>
+                <div className={`form-group col-md-3 ${validationClass} ${feedbackClass}`}>
                     <label htmlFor="category-input">Category</label>
                     <input type="text" id="category-input" className="form-control" value={this.props.category}
                            onChange={this.handleChange} placeholder="e.g. Groceries" />
-                    {this.props.displayError ? <span className='help-block'>Category field is required</span> : ''}
+                    {this.props.feedback ? this.props.invalid ?
+                        <span className="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" /> :
+                        <span className="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" /> : ''}
+                    {this.props.feedback && this.props.invalid ?
+                        <span className='help-block'>Category field is required</span> : ''}
                 </div>
             </div>
         )

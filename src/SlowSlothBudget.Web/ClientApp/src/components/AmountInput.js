@@ -19,17 +19,22 @@ class AmountInput extends React.Component {
     }
 
     render() {
-        const hasErrorClass = this.props.displayError ? 'has-error' : '';
+        const validationClass = this.props.feedback ? this.props.invalid ? 'has-error' : 'has-success' : '';
+        const feedbackClass = this.props.feedback ? 'has-feedback' : '';
         return (
             <div className="row">
-                <div className={`form-group col-md-3 ${hasErrorClass}`}>
-                    <label htmlFor="amount-input">Amount</label>
+                <div className={`form-group col-md-3 ${validationClass} ${feedbackClass}`}>
+                    <label htmlFor="amount-input" className="control-label">Amount</label>
                     <div className="input-group">
+                        <span className="input-group-addon">PLN</span>
                         <input type="text" id="amount-input" className="form-control" value={this.props.amount}
                                onChange={this.handleChange} placeholder="e.g. 1.23" ref={this.amountInput} />
-                        <span className="input-group-addon">PLN</span>
                     </div>
-                    {this.props.displayError ? <span className='help-block'>Amount field is required</span> : ''}
+                    {this.props.feedback ? this.props.invalid ?
+                        <span className="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" /> :
+                        <span className="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" /> : ''}
+                    {this.props.feedback && this.props.invalid ?
+                        <span className='help-block'>Amount field is required</span> : ''}
                 </div>
             </div>
         )
