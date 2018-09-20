@@ -13,7 +13,7 @@ class CategoryInput extends React.Component {
     }
 
     render() {
-        const validationState = this.props.feedback && (this.props.invalid ? 'error' : 'success');
+        const validationState = this.props.feedback ? (this.props.invalid ? 'error' : 'success') : null;
         return (
             <Row>
                 <FormGroup validationState={validationState} controlId="category-input">
@@ -21,7 +21,7 @@ class CategoryInput extends React.Component {
                     <FormControl type="text" value={this.props.category} onChange={this.handleChange}
                                  placeholder="e.g. Groceries" />
                     <FormControl.Feedback>
-                        <Glyphicon glyph={this.props.feedback && (this.props.invalid ? 'remove' : 'ok')} />
+                        <Glyphicon glyph={this.props.feedback ? (this.props.invalid ? 'remove' : 'ok') : ''} />
                     </FormControl.Feedback>
                     {this.props.feedback && this.props.invalid &&
                     <HelpBlock className='help-block'>Category field is required</HelpBlock>}

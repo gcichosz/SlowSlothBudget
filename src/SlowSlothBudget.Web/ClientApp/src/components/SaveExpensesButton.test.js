@@ -11,7 +11,7 @@ it('is enabled when not loading', () => {
 it('is contains save prompt when not loading', () => {
     const wrapper = shallow(<SaveExpenseButton loading={false} />);
 
-    expect(wrapper.find('button').contains('Save expense')).toEqual(true);
+    expect(wrapper.find('Button').contains('Save expense')).toEqual(true);
     expect(wrapper.find('#add-expense-loader')).toHaveLength(0);
 });
 
@@ -24,6 +24,6 @@ it('is disabled when loading', () => {
 it('is contains loader when loading', () => {
     const wrapper = shallow(<SaveExpenseButton loading={true} />);
 
-    expect(wrapper.find('button').contains('Save expense')).toEqual(false);
+    expect(wrapper.find('Button').contains('Save expense')).toEqual(false);
     expect(wrapper.find('#add-expense-loader')).toHaveLength(1);
 });

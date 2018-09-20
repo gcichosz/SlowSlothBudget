@@ -23,7 +23,7 @@ class DateInput extends React.Component {
     }
 
     render() {
-        const validationState = this.props.feedback && (this.props.invalid ? 'error' : 'success');
+        const validationState = this.props.feedback ? (this.props.invalid ? 'error' : 'success') : null;
         return (
             <Row>
                 <FormGroup validationState={validationState} controlId="date-input">
@@ -40,7 +40,7 @@ class DateInput extends React.Component {
                         placeholderText={`e.g. ${moment().format('DD.MM.YYYY')}`}
                     />
                     <FormControl.Feedback>
-                        <Glyphicon glyph={this.props.feedback && (this.props.invalid ? 'remove' : 'ok')} />
+                        <Glyphicon glyph={this.props.feedback ? (this.props.invalid ? 'remove' : 'ok') : ''} />
                     </FormControl.Feedback>
                     {this.props.feedback && this.props.invalid &&
                     <HelpBlock className='help-block'>Date field is required</HelpBlock>}

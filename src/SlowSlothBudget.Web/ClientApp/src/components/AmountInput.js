@@ -16,11 +16,11 @@ class AmountInput extends React.Component {
     }
 
     focusAmountInput() {
-        this.amountInput.current.focus();
+        this.amountInput.focus();
     }
 
     render() {
-        const validationState = this.props.feedback && (this.props.invalid ? 'error' : 'success');
+        const validationState = this.props.feedback ? (this.props.invalid ? 'error' : 'success') : null;
         return (
             <Row>
                 <FormGroup validationState={validationState} controlId="amount-input">
@@ -28,10 +28,12 @@ class AmountInput extends React.Component {
                     <InputGroup>
                         <InputGroup.Addon>PLN</InputGroup.Addon>
                         <FormControl type="text" value={this.props.amount} onChange={this.handleChange}
-                                     placeholder="e.g. 1.23" inputRef={this.amountInput} />
+                                     placeholder="e.g. 1.23" inputRef={ref => {
+                            this.amountInput = ref;
+                        }} />
                     </InputGroup>
                     <FormControl.Feedback>
-                        <Glyphicon glyph={this.props.feedback && (this.props.invalid ? 'remove' : 'ok')} />
+                        <Glyphicon glyph={this.props.feedback ? (this.props.invalid ? 'remove' : 'ok') : ''} />
                     </FormControl.Feedback>
                     {this.props.feedback && this.props.invalid &&
                     <HelpBlock className='help-block'>Amount field is required</HelpBlock>}
