@@ -1,7 +1,0 @@
-.idea/
-bin/
-obj/
-**/node_modules/
-.dockerignore
-.gitignore
-Dockerfile
