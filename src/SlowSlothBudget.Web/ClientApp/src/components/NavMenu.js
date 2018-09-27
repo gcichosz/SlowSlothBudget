@@ -1,5 +1,6 @@
 import React from 'react';
 import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import LoginLink from './LoginLink'
 import './NavMenu.css';
 
@@ -13,9 +14,16 @@ export default () => (
         </Navbar.Header>
         <Navbar.Collapse>
             <Nav>
-                <NavItem>
-                    <Glyphicon glyph='home' /> Home
-                </NavItem>
+                <LinkContainer exact to="/">
+                    <NavItem>
+                        <Glyphicon glyph='home' /> Home
+                    </NavItem>
+                </LinkContainer>
+                <LinkContainer exact to="/expensesexplorer">
+                    <NavItem>
+                        <Glyphicon glyph='th-list' /> Expenses
+                    </NavItem>
+                </LinkContainer>
                 <LoginLink />
             </Nav>
         </Navbar.Collapse>
