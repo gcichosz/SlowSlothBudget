@@ -8,7 +8,7 @@ using SlowSlothBudget.Web.Models.Dtos;
 namespace SlowSlothBudget.Web.Test.Mappers
 {
     [TestFixture]
-    public class MapperTests
+    public class ExpensesMapperTests
     {
         private static readonly DateTime SampleLocalDate = DateTime.Now;
         private static readonly DateTime SampleUniversalDate = SampleLocalDate.ToUniversalTime();
