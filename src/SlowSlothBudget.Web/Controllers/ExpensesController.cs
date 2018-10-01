@@ -41,6 +41,19 @@ namespace SlowSlothBudget.Web.Controllers
         }
 
         [HttpGet]
+        public IActionResult GetExpenses()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+
+            var userExpenses = _expensesRepository.FindAllUserExpenses(userId);
+            return Ok(_expensesMapper.Map(userExpenses));
+        }
+
+        [HttpGet("{id}")]
         public IActionResult GetExpense(string id)
         {
             throw new System.NotImplementedException();

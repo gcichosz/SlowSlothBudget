@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using SlowSlothBudget.Web.Models;
@@ -20,6 +21,11 @@ namespace SlowSlothBudget.Web.DAL
         {
             _collection.InsertOne(expense);
             return expense;
+        }
+
+        public IEnumerable<Expense> FindAllUserExpenses(string userId)
+        {
+            return _collection.Find(e => e.OwnerUserId == userId).ToList();
         }
     }
 }
