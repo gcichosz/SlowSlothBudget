@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import moment from "moment";
 import { Row, FormGroup, ControlLabel, FormControl, Glyphicon, HelpBlock } from 'react-bootstrap';
 import 'moment/locale/en-gb';
+import { displayFormats } from "../utils/Configuration";
 import 'react-datepicker/dist/react-datepicker.css';
 import './DateInput.css'
 
@@ -35,9 +36,9 @@ class DateInput extends React.Component {
                         onChangeRaw={this.handleChangeRaw}
                         locale="en-gb"
                         dropdownMode="select"
-                        dateFormat="DD.MM.YYYY"
+                        dateFormat={displayFormats.dateFormat}
                         className="form-control"
-                        placeholderText={`e.g. ${moment().format('DD.MM.YYYY')}`}
+                        placeholderText={`e.g. ${moment().format(displayFormats.dateFormat)}`}
                     />
                     <FormControl.Feedback>
                         <Glyphicon glyph={this.props.feedback ? (this.props.invalid ? 'remove' : 'ok') : ''} />

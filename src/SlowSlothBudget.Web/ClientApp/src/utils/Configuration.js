@@ -6,4 +6,8 @@ const auth0Config = {
     responseType: 'token id_token'
 };
 
-export { auth0Config };
+const displayFormats = {
+    dateFormat: "DD.MM.YYYY"
+};
+
+export { auth0Config, displayFormats };
