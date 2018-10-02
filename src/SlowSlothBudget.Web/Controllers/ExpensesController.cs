@@ -58,5 +58,22 @@ namespace SlowSlothBudget.Web.Controllers
         {
             throw new System.NotImplementedException();
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteExpense(string id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+
+            if (_expensesRepository.DeleteExpense(id, userId))
+            {
+                return NoContent();
+            }
+
+            return NotFound();
+        }
     }
 }
