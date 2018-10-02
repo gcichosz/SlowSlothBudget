@@ -49,7 +49,7 @@ namespace SlowSlothBudget.Web.Controllers
                 return Unauthorized();
             }
 
-            var userExpenses = _expensesRepository.FindAllUserExpenses(userId);
+            var userExpenses = _expensesRepository.FindAllUserExpensesOrderedByDateDesc(userId);
             return Ok(_expensesMapper.Map(userExpenses));
         }
 

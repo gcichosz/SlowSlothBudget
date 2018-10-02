@@ -23,9 +23,9 @@ namespace SlowSlothBudget.Web.DAL
             return expense;
         }
 
-        public IEnumerable<Expense> FindAllUserExpenses(string userId)
+        public IEnumerable<Expense> FindAllUserExpensesOrderedByDateDesc(string userId)
         {
-            return _collection.Find(e => e.OwnerUserId == userId).ToList();
+            return _collection.Find(e => e.OwnerUserId == userId).SortByDescending(e => e.Date).ToList();
         }
     }
 }
