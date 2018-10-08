@@ -4,7 +4,7 @@ import auth0Client from '../utils/Auth';
 import { Col, Row, Alert } from 'react-bootstrap';
 import AmountInputFormGroup from './AmountInputFormGroup';
 import DateInputFormGroup from "./DateInputFormGroup";
-import CategoryInput from "./CategoryInput";
+import CategoryInputFormGroup from "./CategoryInputFormGroup";
 import DescriptionInput from "./DescriptionInput";
 import SaveExpenseButton from "./SaveExpenseButton";
 import './AddExpense.css'
@@ -135,8 +135,8 @@ class AddExpense extends React.Component {
                                           focusOnDidMount={true} />
                     <DateInputFormGroup date={expense.date} onDateChanged={this.handleDateChange}
                                         invalid={dateInvalid} feedback={this.state.submitted} />
-                    <CategoryInput category={expense.category} onCategoryChanged={this.handleCategoryChange}
-                                   invalid={categoryInvalid} feedback={this.state.submitted} />
+                    <CategoryInputFormGroup category={expense.category} onCategoryChanged={this.handleCategoryChange}
+                                            invalid={categoryInvalid} feedback={this.state.submitted} />
                     <DescriptionInput description={expense.description}
                                       onDescriptionChanged={this.handleDescriptionChanged} />
                     <SaveExpenseButton loading={this.state.loading} />
