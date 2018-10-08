@@ -7,7 +7,7 @@ jest.mock('../utils/Auth');
 it('validates required inputs correctly', () => {
     const wrapper = mount(<AddExpense />);
 
-    wrapper.instance().handleDateChange(null);
+    wrapper.instance().handleInputChange("date", null);
     wrapper.instance().handleSubmit({preventDefault: jest.fn()});
     wrapper.update();
 

@@ -30,34 +30,13 @@ class AddExpense extends React.Component {
             }
         };
 
-        this.handleAmountChange = this.handleAmountChange.bind(this);
-        this.handleDateChange = this.handleDateChange.bind(this);
-        this.handleCategoryChange = this.handleCategoryChange.bind(this);
-        this.handleDescriptionChanged = this.handleDescriptionChanged.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleAmountChange(value) {
+    handleInputChange(field, value) {
         let expense = {...this.state.expense};
-        expense.amount = value;
-        this.setState({expense: expense});
-    }
-
-    handleDateChange(date) {
-        let expense = {...this.state.expense};
-        expense.date = date;
-        this.setState({expense: expense});
-    }
-
-    handleCategoryChange(value) {
-        let expense = {...this.state.expense};
-        expense.category = value;
-        this.setState({expense: expense});
-    }
-
-    handleDescriptionChanged(value) {
-        let expense = {...this.state.expense};
-        expense.description = value;
+        expense[field] = value;
         this.setState({expense: expense});
     }
 
@@ -130,15 +109,15 @@ class AddExpense extends React.Component {
                     {this.state.errors.serverError &&
                     <Row><Alert bsStyle="danger">Your request could not be processed. Internal server error
                         occured.</Alert></Row>}
-                    <AmountInputFormGroup amount={expense.amount} onAmountChange={this.handleAmountChange}
+                    <AmountInputFormGroup amount={expense.amount} onInputChanged={this.handleInputChange}
                                           invalid={amountInvalid} feedback={this.state.submitted}
                                           focusOnDidMount={true} />
-                    <DateInputFormGroup date={expense.date} onDateChanged={this.handleDateChange}
+                    <DateInputFormGroup date={expense.date} onInputChanged={this.handleInputChange}
                                         invalid={dateInvalid} feedback={this.state.submitted} />
-                    <CategoryInputFormGroup category={expense.category} onCategoryChanged={this.handleCategoryChange}
+                    <CategoryInputFormGroup category={expense.category} onInputChanged={this.handleInputChange}
                                             invalid={categoryInvalid} feedback={this.state.submitted} />
                     <DescriptionInputFormGroup description={expense.description}
-                                               onDescriptionChanged={this.handleDescriptionChanged} />
+                                               onInputChanged={this.handleInputChange} />
                     <SaveExpenseButton loading={this.state.loading} />
                 </form>
             </Col>

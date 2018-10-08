@@ -16,7 +16,7 @@ class AmountInputFormGroup extends React.Component {
     }
 
     handleChange(value) {
-        this.props.onAmountChange(value);
+        this.props.onInputChanged("amount", value);
     }
 
     render() {
