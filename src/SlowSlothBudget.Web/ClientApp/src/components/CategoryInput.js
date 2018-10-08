@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Row, FormGroup, ControlLabel, FormControl, Glyphicon, HelpBlock } from 'react-bootstrap';
+import CategoryInputField from "./CategoryInputField";
 
 class CategoryInput extends React.Component {
     constructor(props) {
@@ -8,8 +9,8 @@ class CategoryInput extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(event) {
-        this.props.onCategoryChanged(event.target.value);
+    handleChange(value) {
+        this.props.onCategoryChanged(value);
     }
 
     render() {
@@ -18,8 +19,7 @@ class CategoryInput extends React.Component {
             <Row>
                 <FormGroup validationState={validationState} controlId="category-input">
                     <ControlLabel>Category</ControlLabel>
-                    <FormControl type="text" value={this.props.category} onChange={this.handleChange}
-                                 placeholder="e.g. Groceries" />
+                    <CategoryInputField category={this.props.category} onCategoryChanged={this.handleChange} />
                     <FormControl.Feedback>
                         <Glyphicon glyph={this.props.feedback ? (this.props.invalid ? 'remove' : 'ok') : ''} />
                     </FormControl.Feedback>
