@@ -11,7 +11,6 @@ class DateInput extends React.Component {
         super(props);
 
         this.handleChange = this.handleChange.bind(this);
-        DateInput.handleChangeRaw = DateInput.handleChangeRaw.bind(this);
     }
 
     handleChange(value) {
