@@ -35,21 +35,12 @@ class AddExpense extends React.Component {
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleDescriptionChanged = this.handleDescriptionChanged.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
-        this.amountInput = React.createRef();
-    }
-
-    componentDidMount() {
-        this.amountInput.current.focusAmountInput();
     }
 
     handleAmountChange(value) {
-        const currencyAmountRegex = /^\d+(([.,])\d{0,2})?$/;
-        if (!value || currencyAmountRegex.test(value)) {
-            let expense = {...this.state.expense};
-            expense.amount = value.replace(/,/g, '.');
-            this.setState({expense: expense});
-        }
+        let expense = {...this.state.expense};
+        expense.amount = value;
+        this.setState({expense: expense});
     }
 
     handleDateChange(date) {
@@ -140,8 +131,7 @@ class AddExpense extends React.Component {
                     <Row><Alert bsStyle="danger">Your request could not be processed. Internal server error
                         occured.</Alert></Row>}
                     <AmountInput amount={expense.amount} onAmountChange={this.handleAmountChange}
-                                 invalid={amountInvalid} feedback={this.state.submitted}
-                                 ref={this.amountInput} />
+                                 invalid={amountInvalid} feedback={this.state.submitted} focusOnDidMount={true} />
                     <DateInput date={expense.date} onDateChanged={this.handleDateChange}
                                invalid={dateInvalid} feedback={this.state.submitted} />
                     <CategoryInput category={expense.category} onCategoryChanged={this.handleCategoryChange}

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Row, FormGroup, ControlLabel, InputGroup, FormControl, Glyphicon, HelpBlock } from 'react-bootstrap';
+import AmountInputField from "./AmountInputField";
 
 class AmountInput extends React.Component {
     constructor(props) {
@@ -8,15 +9,14 @@ class AmountInput extends React.Component {
         this.handleChange = this.handleChange.bind(this);
 
         this.amountInput = React.createRef();
-        this.focusAmountInput = this.focusAmountInput.bind(this);
     }
 
-    handleChange(event) {
-        this.props.onAmountChange(event.target.value);
+    componentDidMount() {
+        this.amountInput.current.focusAmountInput();
     }
 
-    focusAmountInput() {
-        this.amountInput.focus();
+    handleChange(value) {
+        this.props.onAmountChange(value);
     }
 
     render() {
@@ -27,10 +27,8 @@ class AmountInput extends React.Component {
                     <ControlLabel>Amount</ControlLabel>
                     <InputGroup>
                         <InputGroup.Addon>PLN</InputGroup.Addon>
-                        <FormControl type="text" value={this.props.amount} onChange={this.handleChange}
-                                     placeholder="e.g. 1.23" inputRef={ref => {
-                            this.amountInput = ref;
-                        }} />
+                        <AmountInputField amount={this.props.amount} onAmountChange={this.handleChange}
+                                          ref={this.amountInput} />
                     </InputGroup>
                     <FormControl.Feedback>
                         <Glyphicon glyph={this.props.feedback ? (this.props.invalid ? 'remove' : 'ok') : ''} />
