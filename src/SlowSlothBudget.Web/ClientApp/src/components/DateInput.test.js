@@ -1,5 +1,5 @@
 import React from 'react';
-import DateInputField from "./DateInputField";
+import DateInput from "./DateInput";
 
 it('replaces \',\' characters with \'.\'', () => {
     const commas = ',,,';
@@ -8,7 +8,7 @@ it('replaces \',\' characters with \'.\'', () => {
         target: {value: commas}
     };
 
-    DateInputField.handleChangeRaw(event);
+    DateInput.handleChangeRaw(event);
 
     expect(event.target.value).toBe(dots);
 });

@@ -12,6 +12,6 @@ it('validates required inputs correctly', () => {
     wrapper.update();
 
     expect(wrapper.find('AmountInputFormGroup').props().invalid).toEqual(true);
-    expect(wrapper.find('DateInput').props().invalid).toEqual(true);
+    expect(wrapper.find('DateInputFormGroup').props().invalid).toEqual(true);
     expect(wrapper.find('CategoryInput').props().invalid).toEqual(true);
 });

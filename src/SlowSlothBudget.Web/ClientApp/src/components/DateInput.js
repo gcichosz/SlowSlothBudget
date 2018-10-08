@@ -1,32 +1,40 @@
-import React from 'react';
-import { Row, FormGroup, ControlLabel, FormControl, Glyphicon, HelpBlock } from 'react-bootstrap';
-import DateInputField from "./DateInputField";
+import * as React from "react";
+import DatePicker from "react-datepicker";
+import moment from "moment";
+import 'moment/locale/en-gb';
+import { displayFormats } from "../utils/Configuration";
+import 'react-datepicker/dist/react-datepicker.css';
+import './DateInput.css'
 
 class DateInput extends React.Component {
     constructor(props) {
         super(props);
 
         this.handleChange = this.handleChange.bind(this);
+        DateInput.handleChangeRaw = DateInput.handleChangeRaw.bind(this);
     }
 
-    handleChange(date) {
-        this.props.onDateChanged(date);
+    handleChange(value) {
+        this.props.onDateChange(value);
+    }
+
+    static handleChangeRaw(event) {
+        event.target.value = event.target.value.replace(/,/g, '.');
     }
 
     render() {
-        const validationState = this.props.feedback ? (this.props.invalid ? 'error' : 'success') : null;
         return (
-            <Row>
-                <FormGroup validationState={validationState} controlId="date-input">
-                    <ControlLabel>Date</ControlLabel>
-                    <DateInputField date={this.props.date} onDateChange={this.handleChange} />
-                    <FormControl.Feedback>
-                        <Glyphicon glyph={this.props.feedback ? (this.props.invalid ? 'remove' : 'ok') : ''} />
-                    </FormControl.Feedback>
-                    {this.props.feedback && this.props.invalid &&
-                    <HelpBlock className='help-block'>Date field is required</HelpBlock>}
-                </FormGroup>
-            </Row>
+            <DatePicker
+                id="date-input"
+                selected={this.props.date}
+                onChange={this.handleChange}
+                onChangeRaw={DateInput.handleChangeRaw}
+                locale="en-gb"
+                dropdownMode="select"
+                dateFormat={displayFormats.dateFormat}
+                className="form-control"
+                placeholderText={`e.g. ${moment().format(displayFormats.dateFormat)}`}
+            />
         )
     }
 }

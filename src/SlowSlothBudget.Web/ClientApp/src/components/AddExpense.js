@@ -3,7 +3,7 @@ import moment from "moment";
 import auth0Client from '../utils/Auth';
 import { Col, Row, Alert } from 'react-bootstrap';
 import AmountInputFormGroup from './AmountInputFormGroup';
-import DateInput from "./DateInput";
+import DateInputFormGroup from "./DateInputFormGroup";
 import CategoryInput from "./CategoryInput";
 import DescriptionInput from "./DescriptionInput";
 import SaveExpenseButton from "./SaveExpenseButton";
@@ -133,8 +133,8 @@ class AddExpense extends React.Component {
                     <AmountInputFormGroup amount={expense.amount} onAmountChange={this.handleAmountChange}
                                           invalid={amountInvalid} feedback={this.state.submitted}
                                           focusOnDidMount={true} />
-                    <DateInput date={expense.date} onDateChanged={this.handleDateChange}
-                               invalid={dateInvalid} feedback={this.state.submitted} />
+                    <DateInputFormGroup date={expense.date} onDateChanged={this.handleDateChange}
+                                        invalid={dateInvalid} feedback={this.state.submitted} />
                     <CategoryInput category={expense.category} onCategoryChanged={this.handleCategoryChange}
                                    invalid={categoryInvalid} feedback={this.state.submitted} />
                     <DescriptionInput description={expense.description}
