@@ -2,7 +2,7 @@ import React from 'react';
 import moment from "moment";
 import auth0Client from '../utils/Auth';
 import { Col, Row, Alert } from 'react-bootstrap';
-import AmountInput from './AmountInput';
+import AmountInputFormGroup from './AmountInputFormGroup';
 import DateInput from "./DateInput";
 import CategoryInput from "./CategoryInput";
 import DescriptionInput from "./DescriptionInput";
@@ -130,8 +130,9 @@ class AddExpense extends React.Component {
                     {this.state.errors.serverError &&
                     <Row><Alert bsStyle="danger">Your request could not be processed. Internal server error
                         occured.</Alert></Row>}
-                    <AmountInput amount={expense.amount} onAmountChange={this.handleAmountChange}
-                                 invalid={amountInvalid} feedback={this.state.submitted} focusOnDidMount={true} />
+                    <AmountInputFormGroup amount={expense.amount} onAmountChange={this.handleAmountChange}
+                                          invalid={amountInvalid} feedback={this.state.submitted}
+                                          focusOnDidMount={true} />
                     <DateInput date={expense.date} onDateChanged={this.handleDateChange}
                                invalid={dateInvalid} feedback={this.state.submitted} />
                     <CategoryInput category={expense.category} onCategoryChanged={this.handleCategoryChange}

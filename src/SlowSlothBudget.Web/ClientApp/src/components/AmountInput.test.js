@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import AmountInputField from "./AmountInputField";
+import AmountInput from "./AmountInput";
 
 function createEventWithValue(value) {
     return {target: {value: value}};
@@ -12,7 +12,7 @@ jest.mock('../utils/Auth');
 it('does not accept non amount values in amount input', () => {
     const notAmountInput = 'not-amount';
     const mockCallback = jest.fn(x => x);
-    const wrapper = shallow(<AmountInputField onAmountChange={mockCallback} />);
+    const wrapper = shallow(<AmountInput onAmountChange={mockCallback} />);
 
     wrapper.instance().handleChange(createEventWithValue(notAmountInput));
 
@@ -23,7 +23,7 @@ it('replaces \',\' characters with \'.\' in amount input', () => {
     const commaSeparatedNumber = '1,23';
     const dotSeparatedNumber = '1.23';
     const mockCallback = jest.fn(x => x);
-    const wrapper = shallow(<AmountInputField onAmountChange={mockCallback} />);
+    const wrapper = shallow(<AmountInput onAmountChange={mockCallback} />);
 
     wrapper.instance().handleChange(createEventWithValue(commaSeparatedNumber));
 
@@ -34,7 +34,7 @@ it('replaces \',\' characters with \'.\' in amount input', () => {
 it('accepts amount values in amount input', () => {
     const amountInput = '123.45';
     const mockCallback = jest.fn(x => x);
-    const wrapper = shallow(<AmountInputField onAmountChange={mockCallback} />);
+    const wrapper = shallow(<AmountInput onAmountChange={mockCallback} />);
 
     wrapper.instance().handleChange(createEventWithValue(amountInput));
 

@@ -11,7 +11,7 @@ it('validates required inputs correctly', () => {
     wrapper.instance().handleSubmit({preventDefault: jest.fn()});
     wrapper.update();
 
-    expect(wrapper.find('AmountInput').props().invalid).toEqual(true);
+    expect(wrapper.find('AmountInputFormGroup').props().invalid).toEqual(true);
     expect(wrapper.find('DateInput').props().invalid).toEqual(true);
     expect(wrapper.find('CategoryInput').props().invalid).toEqual(true);
 });
