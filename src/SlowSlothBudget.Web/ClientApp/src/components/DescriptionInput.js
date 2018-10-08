@@ -1,6 +1,5 @@
 import * as React from "react";
-import { Row, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
-import DescriptionInputField from "./DescriptionInputField";
+import { FormControl } from 'react-bootstrap';
 
 class DescriptionInput extends React.Component {
     constructor(props) {
@@ -9,18 +8,14 @@ class DescriptionInput extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange(value) {
-        this.props.onDescriptionChanged(value);
+    handleChange(event) {
+        this.props.onDescriptionChanged(event.target.value);
     }
 
     render() {
         return (
-            <Row>
-                <FormGroup controlId="description-input">
-                    <ControlLabel>Description (optional)</ControlLabel>
-                    <DescriptionInputField value={this.props.description} onDescriptionChanged={this.handleChange} />
-                </FormGroup>
-            </Row>
+            <FormControl type="textarea" value={this.props.description} onChange={this.handleChange}
+                         placeholder="e.g. Weekly groceries" />
         )
     }
 }

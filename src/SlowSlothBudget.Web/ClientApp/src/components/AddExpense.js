@@ -5,7 +5,7 @@ import { Col, Row, Alert } from 'react-bootstrap';
 import AmountInputFormGroup from './AmountInputFormGroup';
 import DateInputFormGroup from "./DateInputFormGroup";
 import CategoryInputFormGroup from "./CategoryInputFormGroup";
-import DescriptionInput from "./DescriptionInput";
+import DescriptionInputFormGroup from "./DescriptionInputFormGroup";
 import SaveExpenseButton from "./SaveExpenseButton";
 import './AddExpense.css'
 
@@ -137,8 +137,8 @@ class AddExpense extends React.Component {
                                         invalid={dateInvalid} feedback={this.state.submitted} />
                     <CategoryInputFormGroup category={expense.category} onCategoryChanged={this.handleCategoryChange}
                                             invalid={categoryInvalid} feedback={this.state.submitted} />
-                    <DescriptionInput description={expense.description}
-                                      onDescriptionChanged={this.handleDescriptionChanged} />
+                    <DescriptionInputFormGroup description={expense.description}
+                                               onDescriptionChanged={this.handleDescriptionChanged} />
                     <SaveExpenseButton loading={this.state.loading} />
                 </form>
             </Col>
