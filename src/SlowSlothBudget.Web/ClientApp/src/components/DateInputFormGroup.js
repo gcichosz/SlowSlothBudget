@@ -10,7 +10,7 @@ class DateInputFormGroup extends React.Component {
     }
 
     handleChange(date) {
-        this.props.onInputChanged("date", date);
+        this.props.onDateChanged(date);
     }
 
     render() {

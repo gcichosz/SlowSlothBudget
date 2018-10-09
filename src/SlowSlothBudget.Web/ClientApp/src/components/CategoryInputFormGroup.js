@@ -10,7 +10,7 @@ class CategoryInputFormGroup extends React.Component {
     }
 
     handleChange(value) {
-        this.props.onInputChanged("category", value);
+        this.props.onCategoryChanged(value);
     }
 
     render() {

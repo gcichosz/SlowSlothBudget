@@ -10,7 +10,7 @@ class DescriptionInputFormGroup extends React.Component {
     }
 
     handleChange(value) {
-        this.props.onInputChanged("description", value);
+        this.props.onDescriptionChanged(value);
     }
 
     render() {
