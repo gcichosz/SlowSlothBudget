@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using MongoDB.Bson;
 using SlowSlothBudget.Web.Models;
 using SlowSlothBudget.Web.Models.Dtos;
 
@@ -11,6 +12,7 @@ namespace SlowSlothBudget.Web.Mappers
         {
             return new Expense
             {
+                Id = string.IsNullOrEmpty(expenseDto.Id) ? new ObjectId() : new ObjectId(expenseDto.Id),
                 Amount = expenseDto.Amount,
                 Date = expenseDto.Date.ToUniversalTime(),
                 Category = expenseDto.Category,

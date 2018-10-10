@@ -10,16 +10,16 @@ namespace SlowSlothBudget.Web.Test.Mappers
     [TestFixture]
     public class ExpensesMapperTests
     {
-        private static readonly DateTime SampleLocalDate = DateTime.Now;
-        private static readonly DateTime SampleUniversalDate = SampleLocalDate.ToUniversalTime();
-
         private const decimal SampleAmount = 1.23m;
         private const string SampleCategory = "sample_category";
         private const string SampleDescription = "sample description";
         private const string SampleIdStringified = "d3524543d93f446081d1acad";
         private const string SampleUserId = "sample_user_id";
 
-        private readonly ObjectId _nullObjectId = new ObjectId();
+        private static readonly DateTime SampleLocalDate = DateTime.Now;
+        private static readonly DateTime SampleUniversalDate = SampleLocalDate.ToUniversalTime();
+        private static readonly ObjectId SampleId = new ObjectId(SampleIdStringified);
+        private static readonly ObjectId NullObjectId = new ObjectId();
 
         private readonly ExpenseDto _expenseDtoSample = new ExpenseDto
         {
@@ -29,6 +29,8 @@ namespace SlowSlothBudget.Web.Test.Mappers
             Category = SampleCategory,
             Description = SampleDescription
         };
+
+        private readonly ExpenseDto _emptyExpenseDto = new ExpenseDto();
 
         private readonly Expense _expenseSample = new Expense
         {
@@ -50,7 +52,7 @@ namespace SlowSlothBudget.Web.Test.Mappers
 
         private readonly Expense _mappedExpenseSample = new Expense
         {
-            Id = new ObjectId(),
+            Id = SampleId,
             Amount = SampleAmount,
             Date = SampleUniversalDate,
             Category = SampleCategory,
@@ -59,13 +61,13 @@ namespace SlowSlothBudget.Web.Test.Mappers
         };
 
         [Test]
-        public void Should_NotMapId_When_MappedFromExpenseDto()
+        public void Should_MapExpense_When_ExpenseDtoHasEmptyId()
         {
             var expensesMapper = new ExpensesMapper();
 
-            var actualExpense = expensesMapper.Map(_expenseDtoSample, SampleUserId);
+            var actualExpense = expensesMapper.Map(_emptyExpenseDto, SampleUserId);
 
-            Assert.AreEqual(_nullObjectId, actualExpense.Id);
+            Assert.AreEqual(NullObjectId, actualExpense.Id);
         }
 
         [Test]
@@ -75,6 +77,7 @@ namespace SlowSlothBudget.Web.Test.Mappers
 
             var actualExpense = expensesMapper.Map(_expenseDtoSample, SampleUserId);
 
+            Assert.AreEqual(_mappedExpenseSample.Id, actualExpense.Id);
             Assert.AreEqual(_mappedExpenseSample.Amount, actualExpense.Amount);
             Assert.AreEqual(_mappedExpenseSample.Category, actualExpense.Category);
             Assert.AreEqual(_mappedExpenseSample.Description, actualExpense.Description);
