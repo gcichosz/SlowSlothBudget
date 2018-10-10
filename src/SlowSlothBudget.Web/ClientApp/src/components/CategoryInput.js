@@ -9,7 +9,7 @@ class CategoryInput extends React.Component {
     }
 
     handleChange(event) {
-        this.props.onCategoryChanged(event.target.value);
+        this.props.onCategoryChange(event.target.value);
     }
 
     render() {

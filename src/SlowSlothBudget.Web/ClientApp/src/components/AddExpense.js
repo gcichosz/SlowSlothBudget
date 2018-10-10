@@ -110,17 +110,17 @@ class AddExpense extends React.Component {
                     <Row><Alert bsStyle="danger">Your request could not be processed. Internal server error
                         occured.</Alert></Row>}
                     <AmountInputFormGroup amount={expense.amount}
-                                          onAmountChanged={(amount) => this.handleInputChange("amount", amount)}
+                                          onAmountChange={(amount) => this.handleInputChange("amount", amount)}
                                           invalid={amountInvalid} feedback={this.state.submitted}
                                           focusOnDidMount={true} />
                     <DateInputFormGroup date={expense.date}
-                                        onDateChanged={(date) => this.handleInputChange("date", date)}
+                                        onDateChange={(date) => this.handleInputChange("date", date)}
                                         invalid={dateInvalid} feedback={this.state.submitted} />
                     <CategoryInputFormGroup category={expense.category}
-                                            onCategoryChanged={(category) => this.handleInputChange("category", category)}
+                                            onCategoryChange={(category) => this.handleInputChange("category", category)}
                                             invalid={categoryInvalid} feedback={this.state.submitted} />
                     <DescriptionInputFormGroup description={expense.description}
-                                               onDescriptionChanged={(description) => this.handleInputChange("description", description)} />
+                                               onDescriptionChange={(description) => this.handleInputChange("description", description)} />
                     <SaveExpenseButton loading={this.state.loading} />
                 </form>
             </Col>

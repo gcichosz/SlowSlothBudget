@@ -10,7 +10,7 @@ class DescriptionInputFormGroup extends React.Component {
     }
 
     handleChange(value) {
-        this.props.onDescriptionChanged(value);
+        this.props.onDescriptionChange(value);
     }
 
     render() {
@@ -18,7 +18,7 @@ class DescriptionInputFormGroup extends React.Component {
             <Row>
                 <FormGroup controlId="description-input">
                     <ControlLabel>Description (optional)</ControlLabel>
-                    <DescriptionInput value={this.props.description} onDescriptionChanged={this.handleChange} />
+                    <DescriptionInput value={this.props.description} onDescriptionChange={this.handleChange} />
                 </FormGroup>
             </Row>
         )

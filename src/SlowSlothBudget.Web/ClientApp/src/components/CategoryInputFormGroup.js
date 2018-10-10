@@ -10,7 +10,7 @@ class CategoryInputFormGroup extends React.Component {
     }
 
     handleChange(value) {
-        this.props.onCategoryChanged(value);
+        this.props.onCategoryChange(value);
     }
 
     render() {
@@ -19,7 +19,7 @@ class CategoryInputFormGroup extends React.Component {
             <Row>
                 <FormGroup validationState={validationState} controlId="category-input">
                     <ControlLabel>Category</ControlLabel>
-                    <CategoryInput category={this.props.category} onCategoryChanged={this.handleChange} />
+                    <CategoryInput category={this.props.category} onCategoryChange={this.handleChange} />
                     <FormControl.Feedback>
                         <Glyphicon glyph={this.props.feedback ? (this.props.invalid ? 'remove' : 'ok') : ''} />
                     </FormControl.Feedback>

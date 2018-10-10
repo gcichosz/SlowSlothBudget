@@ -9,7 +9,7 @@ class DescriptionInput extends React.Component {
     }
 
     handleChange(event) {
-        this.props.onDescriptionChanged(event.target.value);
+        this.props.onDescriptionChange(event.target.value);
     }
 
     render() {
