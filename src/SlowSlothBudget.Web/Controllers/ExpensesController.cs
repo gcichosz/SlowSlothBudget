@@ -59,6 +59,28 @@ namespace SlowSlothBudget.Web.Controllers
             throw new System.NotImplementedException();
         }
 
+        [HttpPut("{id}")]
+        public IActionResult UpdateExpense(ExpenseDto expenseDto)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (_expensesRepository.UpdateExpense(_expensesMapper.Map(expenseDto, userId)))
+            {
+                return NoContent();
+            }
+
+            return NotFound();
+        }
+
         [HttpDelete("{id}")]
         public IActionResult DeleteExpense(string id)
         {
