@@ -33,5 +33,13 @@ namespace SlowSlothBudget.Web.DAL
         {
             return _collection.DeleteOne(e => e.Id == new ObjectId(expenseId)).DeletedCount == 1;
         }
+
+        public bool UpdateExpense(Expense expense)
+        {
+            return _collection.UpdateOne(e => e.Id == expense.Id,
+                           Builders<Expense>.Update.Set(e => e.Amount, expense.Amount).Set(e => e.Date, expense.Date)
+                               .Set(e => e.Category, expense.Category).Set(e => e.Description, expense.Description))
+                       .ModifiedCount == 1;
+        }
     }
 }

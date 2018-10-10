@@ -8,5 +8,6 @@ namespace SlowSlothBudget.Web.DAL
         Expense CreateExpense(Expense expense);
         IEnumerable<Expense> FindAllUserExpensesOrderedByDateDesc(string userId);
         bool DeleteExpense(string expenseId, string userId);
+        bool UpdateExpense(Expense expense);
     }
 }
