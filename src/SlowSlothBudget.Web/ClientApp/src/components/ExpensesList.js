@@ -11,7 +11,9 @@ class ExpensesList extends React.Component {
             expenses: []
         };
 
+        this.handleExpenseChange = this.handleExpenseChange.bind(this);
         this.handleExpenseDeleteButtonClick = this.handleExpenseDeleteButtonClick.bind(this);
+        this.handleExpenseSaveButtonClick = this.handleExpenseSaveButtonClick.bind(this);
     }
 
     componentDidMount() {
@@ -22,6 +24,10 @@ class ExpensesList extends React.Component {
                 'Authorization': `Bearer ${auth0Client.getIdToken()}`
             }
         }).then(response => response.json()).then(result => this.setState({expenses: result}));
+    }
+
+    handleExpenseChange(expense) {
+        this.setState({expenses: this.state.expenses.map(e => e.id === expense.id ? expense : e)});
     }
 
     handleExpenseDeleteButtonClick(expenseId) {
@@ -35,7 +41,24 @@ class ExpensesList extends React.Component {
             if (response.ok) {
                 this.setState({expenses: this.state.expenses.filter(e => e.id !== expenseId)});
             }
-        })
+        });
+    };
+
+    handleExpenseSaveButtonClick(expense, pristineExpense) {
+        fetch(`/api/expenses/${expense.id}`, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${auth0Client.getIdToken()}`
+            },
+            body: JSON.stringify(expense)
+        }).then(response => {
+            if (!response.ok) {
+                this.setState({expenses: this.state.expenses.map(e => e.id === expense.id ? pristineExpense : e)});
+            }
+        });
+
     };
 
     render() {
@@ -44,15 +67,17 @@ class ExpensesList extends React.Component {
                 <thead>
                 <tr>
                     <th>Amount</th>
-                    <th>Category</th>
                     <th>Date</th>
+                    <th>Category</th>
                     <th>Description</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 {this.state.expenses.map((expense) => <ExpenseRow expense={expense} key={expense.id}
-                                                                  onDeleteButtonClick={this.handleExpenseDeleteButtonClick} />)}
+                                                                  onDeleteButtonClick={this.handleExpenseDeleteButtonClick}
+                                                                  onSaveButtonClick={this.handleExpenseSaveButtonClick}
+                                                                  onExpenseChange={this.handleExpenseChange} />)}
                 </tbody>
             </Table>
         )
