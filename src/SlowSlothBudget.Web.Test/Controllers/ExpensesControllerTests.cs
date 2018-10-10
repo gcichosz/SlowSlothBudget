@@ -91,7 +91,7 @@ namespace SlowSlothBudget.Web.Test.Controllers
         public void Should_ReturnCreated_When_CreateExpenseSuccessfully()
         {
             var expensesRepository = new Mock<IExpensesRepository>();
-            expensesRepository.Setup(r => r.Create(It.IsAny<Expense>())).Returns(new Expense());
+            expensesRepository.Setup(r => r.CreateExpense(It.IsAny<Expense>())).Returns(new Expense());
             var expensesController =
                 CreateExpensesControllerWithNameIdentifierClaim(expensesRepository.Object,
                     new Mock<IExpensesMapper>().Object);
@@ -107,7 +107,7 @@ namespace SlowSlothBudget.Web.Test.Controllers
         public void Should_ReturnCreatedExpense_When_CreateExpenseSuccessfully()
         {
             var expensesRepository = new Mock<IExpensesRepository>();
-            expensesRepository.Setup(r => r.Create(It.IsAny<Expense>())).Returns(new Expense());
+            expensesRepository.Setup(r => r.CreateExpense(It.IsAny<Expense>())).Returns(new Expense());
             var expensesMapper = new Mock<IExpensesMapper>();
             expensesMapper.Setup(m => m.Map(It.IsAny<ExpenseDto>(), It.IsAny<string>())).Returns(new Expense());
             expensesMapper.Setup(m => m.Map(It.IsAny<Expense>())).Returns(_sampleExpenseDto);
@@ -130,7 +130,7 @@ namespace SlowSlothBudget.Web.Test.Controllers
         public void Should_UseCorrectCreatedActionLocationParameters_When_CreateExpenseSuccessfully()
         {
             var expensesRepository = new Mock<IExpensesRepository>();
-            expensesRepository.Setup(r => r.Create(It.IsAny<Expense>())).Returns(_sampleExpense);
+            expensesRepository.Setup(r => r.CreateExpense(It.IsAny<Expense>())).Returns(_sampleExpense);
             var expensesController =
                 CreateExpensesControllerWithNameIdentifierClaim(expensesRepository.Object,
                     new Mock<IExpensesMapper>().Object);

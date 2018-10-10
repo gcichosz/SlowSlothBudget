@@ -5,7 +5,7 @@ namespace SlowSlothBudget.Web.DAL
 {
     public interface IExpensesRepository
     {
-        Expense Create(Expense expense);
+        Expense CreateExpense(Expense expense);
         IEnumerable<Expense> FindAllUserExpensesOrderedByDateDesc(string userId);
         bool DeleteExpense(string expenseId, string userId);
     }

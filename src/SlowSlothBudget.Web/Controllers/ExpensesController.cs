@@ -35,7 +35,7 @@ namespace SlowSlothBudget.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            var createdExpense = _expensesRepository.Create(_expensesMapper.Map(expenseDto, userId));
+            var createdExpense = _expensesRepository.CreateExpense(_expensesMapper.Map(expenseDto, userId));
             return CreatedAtAction(nameof(GetExpense), new {id = createdExpense.Id.ToString()},
                 _expensesMapper.Map(createdExpense));
         }

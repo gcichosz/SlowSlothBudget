@@ -18,7 +18,7 @@ namespace SlowSlothBudget.Web.DAL
             _collection = database.GetCollection<Expense>(options.Value.CollectionName);
         }
 
-        public Expense Create(Expense expense)
+        public Expense CreateExpense(Expense expense)
         {
             _collection.InsertOne(expense);
             return expense;
