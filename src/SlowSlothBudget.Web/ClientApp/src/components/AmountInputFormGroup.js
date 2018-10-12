@@ -7,6 +7,7 @@ class AmountInputFormGroup extends React.Component {
         super(props);
 
         this.handleChange = this.handleChange.bind(this);
+        this.focusAmountInput = this.focusAmountInput.bind(this);
 
         this.amountInput = React.createRef();
     }
@@ -17,6 +18,10 @@ class AmountInputFormGroup extends React.Component {
 
     handleChange(value) {
         this.props.onAmountChange(value);
+    }
+
+    focusAmountInput() {
+        this.amountInput.current.focusAmountInput();
     }
 
     render() {

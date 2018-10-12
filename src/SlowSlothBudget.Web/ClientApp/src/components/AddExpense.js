@@ -32,6 +32,8 @@ class AddExpense extends React.Component {
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        this.amountInput = React.createRef();
     }
 
     handleInputChange(field, value) {
@@ -68,7 +70,9 @@ class AddExpense extends React.Component {
                     category: '',
                     description: ''
                 };
-                this.setState({expense: cleanExpense, submitted: false, saved: true})
+                this.setState({expense: cleanExpense, submitted: false, saved: true});
+                this.amountInput.current.focusAmountInput();
+
             } else {
                 throw new Error(response.status)
             }
@@ -112,7 +116,7 @@ class AddExpense extends React.Component {
                     <AmountInputFormGroup amount={expense.amount}
                                           onAmountChange={(amount) => this.handleInputChange("amount", amount)}
                                           invalid={amountInvalid} feedback={this.state.submitted}
-                                          focusOnDidMount={true} />
+                                          ref={this.amountInput} />
                     <DateInputFormGroup date={expense.date}
                                         onDateChange={(date) => this.handleInputChange("date", date)}
                                         invalid={dateInvalid} feedback={this.state.submitted} />
