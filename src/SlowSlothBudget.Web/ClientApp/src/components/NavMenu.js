@@ -24,6 +24,11 @@ export default () => (
                         <Glyphicon glyph='th-list' /> Expenses
                     </NavItem>
                 </LinkContainer>
+                <LinkContainer exact to="/yearaverages">
+                    <NavItem>
+                        <Glyphicon glyph='stats' /> Statistics
+                    </NavItem>
+                </LinkContainer>
                 <LoginLink />
             </Nav>
         </Navbar.Collapse>
