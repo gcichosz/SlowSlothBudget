@@ -5,10 +5,10 @@ class CategoryRow extends React.Component {
         return (
             <tr>
                 <td>
-                    this.props.categoryName
+                    {this.props.name}
                 </td>
                 <td>
-                    parseFloat(this.props.amount).toFixed(2)
+                    {parseFloat(this.props.amount).toFixed(2)}
                 </td>
             </tr>
         )
