@@ -1,0 +1,26 @@
+pool:
+  vmImage: 'vs2017-win2016'
+
+steps:
+- script: |
+    npm install
+  workingDirectory: ./src/SlowSlothBudget.Web/ClientApp
+  displayName: 'Restore npm packages'
+
+- script: dotnet restore
+  displayName: 'Restore NuGet packages'
+
+- script: dotnet build -c Release ./src/SlowSlothBudget.Web/SlowSlothBudget.Web.csproj
+  displayName: 'Build the project'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: test
+    projects: '**/*Test/*.csproj'
+    arguments: '--configuration Release'
+
+- script: |
+    npm test
+  workingDirectory: ./src/SlowSlothBudget.Web/ClientApp
+  failOnStderr: true
+  displayName: 'Run front-end unit tests'
