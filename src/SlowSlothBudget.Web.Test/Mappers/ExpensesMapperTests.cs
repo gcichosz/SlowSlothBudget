@@ -125,5 +125,11 @@ namespace SlowSlothBudget.Web.Test.Mappers
 
             Assert.AreEqual(_mappedExpenseDtoSample.Date, actualExpense.Date);
         }
+
+        [Test]
+        public void Failing_Test_To_Check_Azure_Pipelines()
+        {
+            Assert.True(false);
+        }
     }
 }
