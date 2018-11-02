@@ -7,7 +7,7 @@ steps:
   workingDirectory: ./src/SlowSlothBudget.Web/ClientApp
   displayName: 'Restore npm packages'
 
-- script: dotnet restore
+- script: dotnet restore ./src/SlowSlothBudget.Web/SlowSlothBudget.Web.csproj
   displayName: 'Restore NuGet packages'
 
 - script: dotnet build -c Release ./src/SlowSlothBudget.Web/SlowSlothBudget.Web.csproj
