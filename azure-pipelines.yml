@@ -22,5 +22,4 @@ steps:
 
 - script: set CI=true && npm test
   workingDirectory: ./src/SlowSlothBudget.Web/ClientApp
-  failOnStderr: true
   displayName: 'Run front-end unit tests'
