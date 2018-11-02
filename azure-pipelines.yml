@@ -18,6 +18,7 @@ steps:
     command: test
     projects: '**/*Test/*.csproj'
     arguments: '--configuration Release'
+  displayName: 'Run back-end unit tests'
 
 - script: |
     npm test
