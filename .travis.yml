@@ -8,10 +8,10 @@ install:
 script:
   - ./test.sh
   - ./build.sh
-deploy:
-  provider: script
-  script: bash deploy.sh
-  skip_cleanup: true
+#deploy:
+#  provider: script
+#  script: bash deploy.sh
+#  skip_cleanup: true
 cache:
   directories:
     - ./src/SlowSlothBudget.Web/ClientApp/node_modules
