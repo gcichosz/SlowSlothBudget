@@ -20,8 +20,7 @@ steps:
     arguments: '--configuration Release'
   displayName: 'Run back-end unit tests'
 
-- script: |
-    npm test
+- script: set CI=true && npm test
   workingDirectory: ./src/SlowSlothBudget.Web/ClientApp
   failOnStderr: true
   displayName: 'Run front-end unit tests'
