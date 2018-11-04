@@ -38,7 +38,7 @@ steps:
 - task: AzureAppServiceManage@0
   inputs:
     azureSubscription: 'slowslothbudget'
-    action: 'Stop'
+    action: 'Stop Azure App Service'
     webAppName: 'slowslothbudget'
   displayName: 'Stop the application'
 
@@ -52,6 +52,6 @@ steps:
 - task: AzureAppServiceManage@0
   inputs:
     azureSubscription: 'slowslothbudget'
-    action: 'Start'
+    action: 'Start Azure App Service'
     webAppName: 'slowslothbudget'
   displayName: 'Start the application'
