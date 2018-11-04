@@ -2,8 +2,7 @@ pool:
   vmImage: 'vs2017-win2016'
 
 steps:
-- script: |
-    npm install
+- script: npm install
   workingDirectory: ./src/SlowSlothBudget.Web/ClientApp
   displayName: 'Restore npm packages'
 
