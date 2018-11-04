@@ -24,11 +24,16 @@ steps:
   workingDirectory: ./src/SlowSlothBudget.Web/ClientApp
   displayName: 'Run front-end unit tests'
 
-- script: |
-    dotnet publish -c Release -o ./publish ./src/SlowSlothBudget.Web/SlowSlothBudget.Web.csproj
-    cd ./src/SlowSlothBudget.Web/publish
-    zip -r publish.zip .
-    cp ./publish.zip $(System.ArtifactsDirectory)
+- script: dotnet publish -c Release -o ./publish ./src/SlowSlothBudget.Web/SlowSlothBudget.Web.csproj
+  displayName: 'Create project release files'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: './src/SlowSlothBudget.Web/publish'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactsDirectory)/slowslothbudget.zip'
+    replaceExistingArchive: true
   displayName: 'Create release artifact'
 
 - task: AzureRmWebAppDeployment@3
