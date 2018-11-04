@@ -31,7 +31,7 @@ steps:
     rootFolderOrFile: './src/SlowSlothBudget.Web/publish'
     includeRootFolder: false
     archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactsDirectory)/slowslothbudget.zip'
+    archiveFile: '$(System.ArtifactsDirectory)/slowslothbudget.zip'
     replaceExistingArchive: true
   displayName: 'Create release artifact'
 
