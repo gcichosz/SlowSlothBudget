@@ -35,9 +35,23 @@ steps:
     replaceExistingArchive: true
   displayName: 'Create release artifact'
 
+- task: AzureAppServiceManage@0
+  inputs:
+    azureSubscription: 'slowslothbudget'
+    action: 'stop Azure App Service'
+    webAppName: 'slowslothbudget'
+  displayName: 'Stop the application'
+
 - task: AzureRmWebAppDeployment@3
   inputs:
     azureSubscription: 'slowslothbudget'
     WebAppName: 'slowslothbudget'
     Package: $(System.ArtifactsDirectory)/**/*.zip
   displayName: 'Deploy the application'
+
+- task: AzureAppServiceManage@0
+  inputs:
+    azureSubscription: 'slowslothbudget'
+    action: 'start Azure App Service'
+    webAppName: 'slowslothbudget'
+  displayName: 'Start the application'
