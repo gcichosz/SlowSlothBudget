@@ -3,42 +3,42 @@ pool:
 
 steps:
 - script: npm install
-  workingDirectory: ./src/SlowSlothBudget.Web/ClientApp
+  workingDirectory: $(frontEndRootDirectory)
   displayName: 'Restore npm packages'
 
-- script: dotnet restore ./src/SlowSlothBudget.Web/SlowSlothBudget.Web.csproj
+- script: dotnet restore $(mainProjectFile)
   displayName: 'Restore NuGet packages'
 
-- script: dotnet build -c Release ./src/SlowSlothBudget.Web/SlowSlothBudget.Web.csproj
+- script: dotnet build -c $(configuration) $(mainProjectFile)
   displayName: 'Build the project'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: test
     projects: '**/*Test/*.csproj'
-    arguments: '--configuration Release'
+    arguments: '--configuration $(configuration)'
   displayName: 'Run back-end unit tests'
 
-- script: set CI=true && npm test
-  workingDirectory: ./src/SlowSlothBudget.Web/ClientApp
+- script: npm test
+  workingDirectory: $(frontEndRootDirectory)
   displayName: 'Run front-end unit tests'
 
-- script: dotnet publish -c Release -o ./publish ./src/SlowSlothBudget.Web/SlowSlothBudget.Web.csproj
+- script: dotnet publish -c $(configuration) -o $(System.DefaultWorkingDirectory)/publish $(mainProjectFile)
   displayName: 'Create project release files'
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: './src/SlowSlothBudget.Web/publish'
+    rootFolderOrFile: $(System.DefaultWorkingDirectory)/publish
     includeRootFolder: false
     archiveType: 'zip'
-    archiveFile: '$(System.ArtifactsDirectory)/slowslothbudget.zip'
+    archiveFile: $(System.ArtifactsDirectory)/publish.zip
     replaceExistingArchive: true
   displayName: 'Create release artifact'
 
 - task: AzureRmWebAppDeployment@3
   inputs:
-    azureSubscription: 'slowslothbudget'
-    WebAppName: 'slowslothbudget'
+    azureSubscription: $(azureSubscription)
+    WebAppName: $(webAppName)
     Package: $(System.ArtifactsDirectory)/**/*.zip
     RenameFilesFlag: true
     TakeAppOfflineFlag: true
