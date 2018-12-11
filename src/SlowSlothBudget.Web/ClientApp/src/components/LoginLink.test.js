@@ -14,9 +14,13 @@ it('renders log in to anonymous users', () => {
 });
 
 it('renders log out to authenticated user', () => {
+    let nickname = "Test user";
     Auth.isAuthenticated.mockImplementation(() => true);
+    Auth.getProfile.mockImplementation(() => {
+        return {nickname: nickname};
+    });
     const wrapper = shallow(<LoginLink.WrappedComponent />);
-    const logout = "Log out";
+    const logout = `Log out (${nickname})`;
 
     expect(wrapper.contains(logout)).toEqual(true);
 });
