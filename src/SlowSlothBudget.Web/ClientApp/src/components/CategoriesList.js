@@ -34,6 +34,8 @@ class CategoriesList extends React.Component {
                 <tbody>
                 {this.state.categories.map((category) => <CategoryRow name={category.name}
                                                                       amount={category.amount} />)}
+                <CategoryRow name={"Sum"}
+                             amount={this.state.categories.reduce((accumulator, currentCategory) => accumulator + currentCategory.amount, 0)} />
                 </tbody>
             </Table>
         )
