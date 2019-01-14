@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson.Serialization.Conventions;
+using SlowSlothBudget.Web.Authentication;
 using SlowSlothBudget.Web.Authorization;
 using SlowSlothBudget.Web.DAL;
 using SlowSlothBudget.Web.Mappers;
@@ -16,8 +17,11 @@ namespace SlowSlothBudget.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IHostingEnvironment _environment;
+
+        public Startup(IHostingEnvironment environment, IConfiguration configuration)
         {
+            _environment = environment;
             Configuration = configuration;
         }
 
@@ -30,16 +34,32 @@ namespace SlowSlothBudget.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            var domain = $"https://{Configuration["Auth0:Domain"]}/";
-            services.AddAuthentication(options =>
+            if (_environment.IsDevelopment())
             {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
+                services.AddAuthentication(options =>
+                    {
+                        options.DefaultAuthenticateScheme = DevelopmentAuthDefaults.AuthenticationScheme;
+                        options.DefaultChallengeScheme = DevelopmentAuthDefaults.AuthenticationScheme;
+                    })
+                    .AddCustomAuth(options =>
+                    {
+                        options.NameIdentifier = Configuration["Authentication:DefaultNameIdentifier"];
+                    });
+            }
+            else
             {
-                options.Authority = domain;
-                options.Audience = Configuration["Auth0:ClientID"];
-            });
+                var domain = $"https://{Configuration["Auth0:Domain"]}/";
+                services.AddAuthentication(options =>
+                    {
+                        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    })
+                    .AddJwtBearer(options =>
+                    {
+                        options.Authority = domain;
+                        options.Audience = Configuration["Auth0:ClientID"];
+                    });
+            }
 
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
             services.AddTransient<IExpensesRepository, ExpensesRepository>();
