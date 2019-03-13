@@ -58,6 +58,28 @@ class Auth {
     }
 }
 
-const auth0Client = new Auth();
+class FakeAuth {
+    getProfile() {
+        return {
+            nickname: "fake_user"
+        }
+    }
+
+    getIdToken() {
+        return "fake_token"
+    }
+
+    isAuthenticated() {
+        return true;
+    }
+
+    signIn() {
+    }
+
+    signOut() {
+    }
+}
+
+const auth0Client = process.env.NODE_ENV === "development" ? new FakeAuth() : new Auth();
 
 export default auth0Client;
