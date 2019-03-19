@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Col, ControlLabel, FormControl, FormGroup, Glyphicon, Row } from "react-bootstrap";
+import { Button, Col, ControlLabel, FormControl, FormGroup, Row } from "react-bootstrap";
 
 class ExpensesFilter extends React.Component {
     constructor(props) {
