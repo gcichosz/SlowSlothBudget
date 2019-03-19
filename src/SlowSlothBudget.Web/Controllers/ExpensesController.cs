@@ -41,7 +41,7 @@ namespace SlowSlothBudget.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetExpenses()
+        public IActionResult GetExpenses(string category, string description)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
@@ -49,7 +49,7 @@ namespace SlowSlothBudget.Web.Controllers
                 return Unauthorized();
             }
 
-            var userExpenses = _expensesRepository.FindAllUserExpensesOrderedByDateDesc(userId);
+            var userExpenses = _expensesRepository.FindUserExpensesOrderedByDateDesc(userId, category, description);
             return Ok(_expensesMapper.Map(userExpenses));
         }
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -24,9 +25,24 @@ namespace SlowSlothBudget.Web.DAL
             return expense;
         }
 
-        public IEnumerable<Expense> FindAllUserExpensesOrderedByDateDesc(string userId)
+        public IEnumerable<Expense> FindUserExpensesOrderedByDateDesc(string userId, string category,
+            string description)
         {
-            return _collection.Find(e => e.OwnerUserId == userId).SortByDescending(e => e.Date).ToList();
+            var filterBuilder = Builders<Expense>.Filter;
+            var filter = filterBuilder.Eq(e => e.OwnerUserId, userId);
+            if (!string.IsNullOrEmpty(category))
+            {
+                filter = filter & filterBuilder.Regex(e => e.Category,
+                             new BsonRegularExpression(new Regex($"{category}", RegexOptions.IgnoreCase)));
+            }
+
+            if (!string.IsNullOrEmpty(description))
+            {
+                filter = filter & filterBuilder.Regex(e => e.Description,
+                             new BsonRegularExpression(new Regex($"{description}", RegexOptions.IgnoreCase)));
+            }
+
+            return _collection.Find(filter).SortByDescending(e => e.Date).ToList();
         }
 
         public bool DeleteExpense(string expenseId, string userId)
