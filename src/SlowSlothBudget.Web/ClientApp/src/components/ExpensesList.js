@@ -63,23 +63,26 @@ class ExpensesList extends React.Component {
 
     render() {
         return (
-            <Table>
-                <thead>
-                <tr>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {this.state.expenses.map((expense) => <ExpenseRow expense={expense} key={expense.id}
-                                                                  onDeleteButtonClick={this.handleExpenseDeleteButtonClick}
-                                                                  onSaveButtonClick={this.handleExpenseSaveButtonClick}
-                                                                  onExpenseChange={this.handleExpenseChange} />)}
-                </tbody>
-            </Table>
+            <div>
+                <h2>Expenses list</h2>
+                <Table>
+                    <thead>
+                    <tr>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {this.state.expenses.map((expense) => <ExpenseRow expense={expense} key={expense.id}
+                                                                      onDeleteButtonClick={this.handleExpenseDeleteButtonClick}
+                                                                      onSaveButtonClick={this.handleExpenseSaveButtonClick}
+                                                                      onExpenseChange={this.handleExpenseChange} />)}
+                    </tbody>
+                </Table>
+            </div>
         )
     }
 }

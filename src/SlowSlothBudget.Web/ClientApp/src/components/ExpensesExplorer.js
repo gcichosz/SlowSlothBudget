@@ -5,7 +5,6 @@ class ExpensesExplorer extends React.Component {
     render() {
         return (
             <div>
-                <h1>Expenses list</h1>
                 <ExpensesList />
             </div>
         )
