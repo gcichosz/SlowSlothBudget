@@ -5,16 +5,28 @@ class ExpensesFilter extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            category: '',
+            description: ''
+        };
+
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleCategoryChange(event) {
-        this.props.onCategoryChange(event.target.value);
+        this.setState({category: event.target.value});
     }
 
     handleDescriptionChange(event) {
-        this.props.onDescriptionChange(event.target.value);
+        this.setState({description: event.target.value});
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+
+        this.props.onFilterSubmitted(this.state);
     }
 
     render() {
@@ -26,14 +38,14 @@ class ExpensesFilter extends React.Component {
                         <Col sm={4}>
                             <FormGroup controlId="category-filter">
                                 <ControlLabel>Category</ControlLabel>
-                                <FormControl type="text" value={this.props.category} placeholder="e.g. Groceries"
+                                <FormControl type="text" value={this.state.category} placeholder="e.g. Groceries"
                                              onChange={this.handleCategoryChange} />
                             </FormGroup>
                         </Col>
                         <Col sm={4}>
                             <FormGroup controlId="description-filter">
                                 <ControlLabel>Description</ControlLabel>
-                                <FormControl type="text" value={this.props.description}
+                                <FormControl type="text" value={this.state.description}
                                              placeholder="e.g. Weekly groceries"
                                              onChange={this.handleDescriptionChange} />
                             </FormGroup>

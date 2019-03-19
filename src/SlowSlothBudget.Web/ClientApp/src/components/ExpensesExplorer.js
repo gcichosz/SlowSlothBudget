@@ -11,23 +11,19 @@ class ExpensesExplorer extends React.Component {
                 category: '',
                 description: ''
             }
-        }
+        };
+
+        this.handleFilterSubmit = this.handleFilterSubmit.bind(this);
     }
 
-    handleInputChange(field, value) {
-        let filter = {...this.state.filter};
-        filter[field] = value;
+    handleFilterSubmit(filter) {
         this.setState({filter: filter});
     }
 
     render() {
-        let filter = this.state.filter;
         return (
             <div>
-                <ExpensesFilter category={filter.category}
-                                onCategoryChange={(category) => this.handleInputChange("category", category)}
-                                description={filter.description}
-                                onDescriptionChange={(description) => this.handleInputChange("description", description)} />
+                <ExpensesFilter onFilterSubmitted={this.handleFilterSubmit} />
                 <ExpensesList />
             </div>
         )
