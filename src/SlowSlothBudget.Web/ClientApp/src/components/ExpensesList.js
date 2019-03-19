@@ -17,13 +17,36 @@ class ExpensesList extends React.Component {
     }
 
     componentDidMount() {
-        fetch('/api/expenses', {
+        this.fetchExpenses();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.filter.category !== prevProps.filter.category || this.props.filter.description !== prevProps.filter.description) {
+            this.fetchExpenses();
+        }
+    }
+
+    fetchExpenses() {
+        let queryString = this.buildFilterQueryString();
+        fetch('/api/expenses' + (queryString ? `?${queryString}` : ''), {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${auth0Client.getIdToken()}`
             }
         }).then(response => response.json()).then(result => this.setState({expenses: result}));
+    }
+
+    buildFilterQueryString() {
+        let query = [];
+        let filter = this.props.filter;
+        for (let key in filter) {
+            if (filter.hasOwnProperty(key) && filter[key]) {
+                query.push(encodeURIComponent(key) + '=' + encodeURIComponent(filter[key]));
+            }
+        }
+
+        return query.join('&');
     }
 
     handleExpenseChange(expense) {
@@ -58,7 +81,6 @@ class ExpensesList extends React.Component {
                 this.setState({expenses: this.state.expenses.map(e => e.id === expense.id ? pristineExpense : e)});
             }
         });
-
     };
 
     render() {

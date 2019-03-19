@@ -24,7 +24,7 @@ class ExpensesExplorer extends React.Component {
         return (
             <div>
                 <ExpensesFilter onFilterSubmitted={this.handleFilterSubmit} />
-                <ExpensesList />
+                <ExpensesList filter={this.state.filter} />
             </div>
         )
     }
