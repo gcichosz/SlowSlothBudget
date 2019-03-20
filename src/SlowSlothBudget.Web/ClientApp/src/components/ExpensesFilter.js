@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Button, Col, ControlLabel, FormControl, FormGroup, Row } from "react-bootstrap";
+import { Button, ControlLabel, Form, FormControl, FormGroup } from "react-bootstrap";
+import "./ExpensesFilter.css"
 
 class ExpensesFilter extends React.Component {
     constructor(props) {
@@ -33,28 +34,20 @@ class ExpensesFilter extends React.Component {
         return (
             <div>
                 <h2>Expenses filter</h2>
-                <form id='filter-expense-form' onSubmit={this.handleSubmit}>
-                    <Row>
-                        <Col sm={4}>
-                            <FormGroup controlId="category-filter">
-                                <ControlLabel>Category</ControlLabel>
-                                <FormControl type="text" value={this.state.category} placeholder="e.g. Groceries"
-                                             onChange={this.handleCategoryChange} />
-                            </FormGroup>
-                        </Col>
-                        <Col sm={4}>
-                            <FormGroup controlId="description-filter">
-                                <ControlLabel>Description</ControlLabel>
-                                <FormControl type="text" value={this.state.description}
-                                             placeholder="e.g. Weekly groceries"
-                                             onChange={this.handleDescriptionChange} />
-                            </FormGroup>
-                        </Col>
-                        <Col sm={4}>
-                            <Button type="submit" id='filter-expenses-button' bsStyle="primary">Filter expenses</Button>
-                        </Col>
-                    </Row>
-                </form>
+                <Form inline={true} id='filter-expense-form' onSubmit={this.handleSubmit}>
+                    <FormGroup controlId="category-filter">
+                        <ControlLabel>Category</ControlLabel>
+                        <FormControl type="text" value={this.state.category} placeholder="e.g. Groceries"
+                                     onChange={this.handleCategoryChange} />
+                    </FormGroup>
+                    <FormGroup controlId="description-filter">
+                        <ControlLabel>Description</ControlLabel>
+                        <FormControl type="text" value={this.state.description}
+                                     placeholder="e.g. Weekly groceries"
+                                     onChange={this.handleDescriptionChange} />
+                    </FormGroup>
+                    <Button type="submit" id='filter-expenses-button' bsStyle="primary">Filter expenses</Button>
+                </Form>
             </div>
         )
     }
