@@ -16,9 +16,15 @@ class ExpensesPaginator extends React.Component {
 
     createPageNumbers() {
         let pages = [];
+        let currentPage = Math.floor(this.state.offset / this.state.limit);
 
         for (let i = 0; i < 4; i++) {
-            pages.push(<span>{i + 1}</span>)
+            if (i === currentPage) {
+                pages.push(<span><b>{i + 1}</b></span>)
+
+            } else {
+                pages.push(<span>{i + 1}</span>)
+            }
         }
 
         return pages;
@@ -43,7 +49,7 @@ class ExpensesPaginator extends React.Component {
         if (updatedOffset > 11) {
             return;
         }
-        
+
         this.handleOffsetChanged(updatedOffset);
         this.props.onOffsetChanged(updatedOffset);
     }
