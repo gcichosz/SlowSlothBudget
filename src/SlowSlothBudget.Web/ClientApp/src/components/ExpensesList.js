@@ -21,13 +21,21 @@ class ExpensesList extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.filter.category !== prevProps.filter.category || this.props.filter.description !== prevProps.filter.description) {
+        if (this.didFilterChanged(prevProps) || this.didPaginationChanged(prevProps)) {
             this.fetchExpenses();
         }
     }
 
+    didFilterChanged(prevProps) {
+        return this.props.filter.category !== prevProps.filter.category || this.props.filter.description !== prevProps.filter.description;
+    }
+
+    didPaginationChanged(prevProps) {
+        return this.props.pagination.offset !== prevProps.pagination.offset || this.props.pagination.limit !== prevProps.pagination.limit;
+    }
+
     fetchExpenses() {
-        let queryString = this.buildFilterQueryString();
+        let queryString = this.buildQueryString();
         fetch('/api/expenses' + (queryString ? `?${queryString}` : ''), {
             method: 'GET',
             headers: {
@@ -35,6 +43,41 @@ class ExpensesList extends React.Component {
                 'Authorization': `Bearer ${auth0Client.getIdToken()}`
             }
         }).then(response => response.json()).then(result => this.setState({expenses: result}));
+    }
+
+    buildQueryString() {
+        let query = [];
+
+        let filterQuery = this.getFilterParameters();
+        let paginationQuery = this.getPaginationParameters();
+        query = filterQuery.concat(paginationQuery);
+
+        return query.join('&');
+
+    }
+
+    getFilterParameters() {
+        let filterParameters = [];
+        let filter = this.props.filter;
+        for (let key in filter) {
+            if (filter.hasOwnProperty(key) && filter[key]) {
+                filterParameters.push(encodeURIComponent(key) + '=' + encodeURIComponent(filter[key]));
+            }
+        }
+
+        return filterParameters;
+    }
+
+    getPaginationParameters() {
+        let paginationParameters = [];
+        let pagination = this.props.pagination;
+        for (let key in pagination) {
+            if (pagination.hasOwnProperty(key) && pagination[key]) {
+                paginationParameters.push(encodeURIComponent(key) + '=' + encodeURIComponent(pagination[key]));
+            }
+        }
+
+        return paginationParameters;
     }
 
     buildFilterQueryString() {
