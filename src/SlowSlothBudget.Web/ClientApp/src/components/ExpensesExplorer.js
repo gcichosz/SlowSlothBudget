@@ -37,7 +37,7 @@ class ExpensesExplorer extends React.Component {
             <div>
                 <ExpensesFilter onFilterSubmitted={this.handleFilterSubmit} />
                 <ExpensesList filter={this.state.filter} pagination={this.state.pagination} />
-                <ExpensesPaginator onOffsetChanged={this.handleOffsetChanged} />
+                <ExpensesPaginator pagination={this.state.pagination} onOffsetChanged={this.handleOffsetChanged} />
             </div>
         )
     }

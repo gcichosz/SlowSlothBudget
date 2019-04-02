@@ -5,10 +5,7 @@ class ExpensesPaginator extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            limit: 3,
-            offset: 0,
-        };
+        this.state = {...this.props.pagination};
 
         this.handleNextButtonClick = this.handleNextButtonClick.bind(this);
         this.handlePreviousButtonClick = this.handlePreviousButtonClick.bind(this);
