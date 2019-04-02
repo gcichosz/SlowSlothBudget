@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using SlowSlothBudget.Web.Models;
+using SlowSlothBudget.Web.Models.DAL;
 using SlowSlothBudget.Web.Options;
 
 namespace SlowSlothBudget.Web.DAL
@@ -25,24 +26,26 @@ namespace SlowSlothBudget.Web.DAL
             return expense;
         }
 
-        public IEnumerable<Expense> FindUserExpensesOrderedByDateDesc(string userId, string category,
-            string description, int offset, int limit)
+        public IEnumerable<Expense> FindUserExpensesOrderedByDateDesc(FindUserExpensesQueryParameters queryParameters)
         {
             var filterBuilder = Builders<Expense>.Filter;
-            var filter = filterBuilder.Eq(e => e.OwnerUserId, userId);
-            if (!string.IsNullOrEmpty(category))
+            var filter = filterBuilder.Eq(e => e.OwnerUserId, queryParameters.UserId);
+            if (!string.IsNullOrEmpty(queryParameters.Category))
             {
                 filter = filter & filterBuilder.Regex(e => e.Category,
-                             new BsonRegularExpression(new Regex($"{category}", RegexOptions.IgnoreCase)));
+                             new BsonRegularExpression(
+                                 new Regex($"{queryParameters.Category}", RegexOptions.IgnoreCase)));
             }
 
-            if (!string.IsNullOrEmpty(description))
+            if (!string.IsNullOrEmpty(queryParameters.Description))
             {
                 filter = filter & filterBuilder.Regex(e => e.Description,
-                             new BsonRegularExpression(new Regex($"{description}", RegexOptions.IgnoreCase)));
+                             new BsonRegularExpression(new Regex($"{queryParameters.Description}",
+                                 RegexOptions.IgnoreCase)));
             }
 
-            return _collection.Find(filter).Skip(offset).Limit(limit).SortByDescending(e => e.Date).ToList();
+            return _collection.Find(filter).Skip(queryParameters.Offset).Limit(queryParameters.Limit)
+                .SortByDescending(e => e.Date).ToList();
         }
 
         public bool DeleteExpense(string expenseId, string userId)

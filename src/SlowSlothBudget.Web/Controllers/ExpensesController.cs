@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SlowSlothBudget.Web.DAL;
 using SlowSlothBudget.Web.Mappers;
+using SlowSlothBudget.Web.Models.DAL;
 using SlowSlothBudget.Web.Models.Dtos;
 
 namespace SlowSlothBudget.Web.Controllers
@@ -49,7 +50,14 @@ namespace SlowSlothBudget.Web.Controllers
                 return Unauthorized();
             }
 
-            var userExpenses = _expensesRepository.FindUserExpensesOrderedByDateDesc(userId, category, description, offset, limit);
+            var userExpenses = _expensesRepository.FindUserExpensesOrderedByDateDesc(new FindUserExpensesQueryParameters
+            {
+                UserId = userId,
+                Category = category,
+                Description = description,
+                Offset = offset,
+                Limit = limit
+            });
             return Ok(_expensesMapper.Map(userExpenses));
         }
 
