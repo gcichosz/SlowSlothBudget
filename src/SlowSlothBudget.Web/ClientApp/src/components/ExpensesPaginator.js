@@ -32,6 +32,7 @@ class ExpensesPaginator extends React.Component {
 
     handleOffsetChanged(offset) {
         this.setState({offset: offset});
+        this.props.onOffsetChanged(offset);
     }
 
     handlePreviousButtonClick() {
@@ -41,7 +42,6 @@ class ExpensesPaginator extends React.Component {
         }
 
         this.handleOffsetChanged(updatedOffset);
-        this.props.onOffsetChanged(updatedOffset);
     }
 
     handleNextButtonClick() {
@@ -51,7 +51,6 @@ class ExpensesPaginator extends React.Component {
         }
 
         this.handleOffsetChanged(updatedOffset);
-        this.props.onOffsetChanged(updatedOffset);
     }
 
     render() {
