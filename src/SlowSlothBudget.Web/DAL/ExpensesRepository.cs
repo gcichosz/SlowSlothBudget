@@ -26,7 +26,7 @@ namespace SlowSlothBudget.Web.DAL
         }
 
         public IEnumerable<Expense> FindUserExpensesOrderedByDateDesc(string userId, string category,
-            string description)
+            string description, int offset, int limit)
         {
             var filterBuilder = Builders<Expense>.Filter;
             var filter = filterBuilder.Eq(e => e.OwnerUserId, userId);
@@ -42,7 +42,7 @@ namespace SlowSlothBudget.Web.DAL
                              new BsonRegularExpression(new Regex($"{description}", RegexOptions.IgnoreCase)));
             }
 
-            return _collection.Find(filter).SortByDescending(e => e.Date).ToList();
+            return _collection.Find(filter).Skip(offset).Limit(limit).SortByDescending(e => e.Date).ToList();
         }
 
         public bool DeleteExpense(string expenseId, string userId)
