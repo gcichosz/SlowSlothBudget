@@ -20,14 +20,22 @@ class ExpensesPaginator extends React.Component {
 
         for (let i = 0; i < 4; i++) {
             if (i === currentPage) {
-                pages.push(<span><b>{i + 1}</b></span>)
+                pages.push(<a onClick={() => {
+                    this.handlePageChanged(i)
+                }}><b>{i + 1}</b></a>)
 
             } else {
-                pages.push(<span>{i + 1}</span>)
+                pages.push(<a onClick={() => {
+                    this.handlePageChanged(i)
+                }}>{i + 1}</a>)
             }
         }
 
         return pages;
+    }
+
+    handlePageChanged(page) {
+        this.handleOffsetChanged(this.state.limit * page)
     }
 
     handleOffsetChanged(offset) {
