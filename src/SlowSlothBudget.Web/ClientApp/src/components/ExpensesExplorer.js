@@ -25,7 +25,9 @@ class ExpensesExplorer extends React.Component {
     }
 
     handleFilterSubmit(filter) {
-        this.setState({filter: filter});
+        let pagination = {...this.state.pagination};
+        pagination.offset = 0;
+        this.setState({filter: filter, pagination: pagination});
     }
 
     handleTotalExpensesNumberChanged(totalExpensesNumber) {
