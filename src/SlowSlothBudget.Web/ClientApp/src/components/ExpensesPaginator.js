@@ -5,16 +5,14 @@ class ExpensesPaginator extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {...this.props.pagination};
-
         this.handleNextButtonClick = this.handleNextButtonClick.bind(this);
         this.handlePreviousButtonClick = this.handlePreviousButtonClick.bind(this);
     }
 
     createPageNumbers() {
         let pages = [];
-        let currentPage = Math.floor(this.state.offset / this.state.limit);
-        let totalPageNumber = Math.ceil(this.props.totalExpensesNumber / this.state.limit);
+        let currentPage = Math.floor(this.props.pagination.offset / this.props.pagination.limit);
+        let totalPageNumber = Math.ceil(this.props.totalExpensesNumber / this.props.pagination.limit);
 
         for (let i = 0; i < totalPageNumber; i++) {
             if (i === currentPage) {
@@ -33,16 +31,15 @@ class ExpensesPaginator extends React.Component {
     }
 
     handlePageChanged(page) {
-        this.handleOffsetChanged(this.state.limit * page)
+        this.handleOffsetChanged(this.props.pagination.limit * page)
     }
 
     handleOffsetChanged(offset) {
-        this.setState({offset: offset});
         this.props.onOffsetChanged(offset);
     }
 
     handlePreviousButtonClick() {
-        let updatedOffset = this.state.offset - this.state.limit;
+        let updatedOffset = this.props.pagination.offset - this.props.pagination.limit;
         if (updatedOffset < 0) {
             return;
         }
@@ -51,7 +48,7 @@ class ExpensesPaginator extends React.Component {
     }
 
     handleNextButtonClick() {
-        let updatedOffset = this.state.offset + this.state.limit;
+        let updatedOffset = this.props.pagination.offset + this.props.pagination.limit;
         if (updatedOffset > this.props.totalExpensesNumber) {
             return;
         }
