@@ -49,11 +49,9 @@ class ExpensesList extends React.Component {
     }
 
     buildQueryString() {
-        let query = [];
-
         let filterQuery = this.getFilterParameters();
         let paginationQuery = this.getPaginationParameters();
-        query = filterQuery.concat(paginationQuery);
+        let query = filterQuery.concat(paginationQuery);
 
         return query.join('&');
 
