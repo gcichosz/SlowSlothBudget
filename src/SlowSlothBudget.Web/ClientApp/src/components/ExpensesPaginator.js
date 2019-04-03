@@ -51,7 +51,7 @@ class ExpensesPaginator extends React.Component {
 
     handleNextButtonClick() {
         let updatedOffset = this.state.offset + this.state.limit;
-        if (updatedOffset > 11) {
+        if (updatedOffset > this.props.totalExpensesNumber) {
             return;
         }
 
