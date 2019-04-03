@@ -54,7 +54,6 @@ class ExpensesList extends React.Component {
         let query = filterQuery.concat(paginationQuery);
 
         return query.join('&');
-
     }
 
     getFilterParameters() {
@@ -79,18 +78,6 @@ class ExpensesList extends React.Component {
         }
 
         return paginationParameters;
-    }
-
-    buildFilterQueryString() {
-        let query = [];
-        let filter = this.props.filter;
-        for (let key in filter) {
-            if (filter.hasOwnProperty(key) && filter[key]) {
-                query.push(encodeURIComponent(key) + '=' + encodeURIComponent(filter[key]));
-            }
-        }
-
-        return query.join('&');
     }
 
     handleExpenseChange(expense) {
