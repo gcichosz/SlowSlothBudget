@@ -14,8 +14,9 @@ class ExpensesPaginator extends React.Component {
     createPageNumbers() {
         let pages = [];
         let currentPage = Math.floor(this.state.offset / this.state.limit);
+        let totalPageNumber = Math.ceil(this.props.totalExpensesNumber / this.state.limit);
 
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < totalPageNumber; i++) {
             if (i === currentPage) {
                 pages.push(<a onClick={() => {
                     this.handlePageChanged(i)
