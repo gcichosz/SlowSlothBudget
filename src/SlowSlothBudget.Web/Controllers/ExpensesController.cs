@@ -57,7 +57,8 @@ namespace SlowSlothBudget.Web.Controllers
                 Description = description,
                 Offset = offset,
                 Limit = limit
-            });
+            }, out var totalUserExpensesNumber);
+            Response.Headers.Add("X-Total-Count", totalUserExpensesNumber.ToString());
             return Ok(_expensesMapper.Map(userExpenses));
         }
 

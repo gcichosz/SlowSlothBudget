@@ -16,15 +16,20 @@ class ExpensesExplorer extends React.Component {
                 limit: 3,
                 offset: 0,
             },
-            totalExpensesNumber: 11
+            totalExpensesNumber: 0
         };
 
         this.handleFilterSubmit = this.handleFilterSubmit.bind(this);
         this.handleOffsetChanged = this.handleOffsetChanged.bind(this);
+        this.handleTotalExpensesNumberChanged = this.handleTotalExpensesNumberChanged.bind(this);
     }
 
     handleFilterSubmit(filter) {
         this.setState({filter: filter});
+    }
+
+    handleTotalExpensesNumberChanged(totalExpensesNumber) {
+        this.setState({totalExpensesNumber: totalExpensesNumber});
     }
 
     handleOffsetChanged(offset) {
@@ -37,7 +42,8 @@ class ExpensesExplorer extends React.Component {
         return (
             <div>
                 <ExpensesFilter onFilterSubmitted={this.handleFilterSubmit} />
-                <ExpensesList filter={this.state.filter} pagination={this.state.pagination} />
+                <ExpensesList filter={this.state.filter} pagination={this.state.pagination}
+                              onTotalExpensesNumberChanged={this.handleTotalExpensesNumberChanged} />
                 <ExpensesPaginator pagination={this.state.pagination}
                                    totalExpensesNumber={this.state.totalExpensesNumber}
                                    onOffsetChanged={this.handleOffsetChanged} />

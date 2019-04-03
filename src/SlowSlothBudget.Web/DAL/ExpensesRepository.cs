@@ -26,7 +26,8 @@ namespace SlowSlothBudget.Web.DAL
             return expense;
         }
 
-        public IEnumerable<Expense> FindUserExpensesOrderedByDateDesc(FindUserExpensesQueryParameters queryParameters)
+        public IEnumerable<Expense> FindUserExpensesOrderedByDateDesc(FindUserExpensesQueryParameters queryParameters,
+            out long totalUserExpensesNumber)
         {
             var filterBuilder = Builders<Expense>.Filter;
             var filter = filterBuilder.Eq(e => e.OwnerUserId, queryParameters.UserId);
@@ -44,6 +45,7 @@ namespace SlowSlothBudget.Web.DAL
                                  RegexOptions.IgnoreCase)));
             }
 
+            totalUserExpensesNumber = _collection.CountDocuments(filter);
             return _collection.Find(filter).Skip(queryParameters.Offset).Limit(queryParameters.Limit)
                 .SortByDescending(e => e.Date).ToList();
         }

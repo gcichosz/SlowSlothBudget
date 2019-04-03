@@ -42,7 +42,10 @@ class ExpensesList extends React.Component {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${auth0Client.getIdToken()}`
             }
-        }).then(response => response.json()).then(result => this.setState({expenses: result}));
+        }).then(response => {
+            this.props.onTotalExpensesNumberChanged(response.headers.get("X-Total-Count"));
+            return response.json()
+        }).then(result => this.setState({expenses: result}));
     }
 
     buildQueryString() {
