@@ -13,7 +13,7 @@ class ExpensesExplorer extends React.Component {
                 description: ''
             },
             pagination: {
-                limit: 3,
+                limit: 20,
                 offset: 0,
             },
             totalExpensesNumber: 0
