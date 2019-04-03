@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button } from "react-bootstrap";
+import { Pagination } from "react-bootstrap";
 
 class ExpensesPaginator extends React.Component {
     constructor(props) {
@@ -9,29 +9,22 @@ class ExpensesPaginator extends React.Component {
         this.handlePreviousButtonClick = this.handlePreviousButtonClick.bind(this);
     }
 
-    createPageNumbers() {
-        let pages = [];
-        let currentPage = Math.floor(this.props.pagination.offset / this.props.pagination.limit);
+    createPaginationItems() {
+        let paginationItems = [];
+        let currentPage = Math.floor(this.props.pagination.offset / this.props.pagination.limit) + 1;
         let totalPageNumber = Math.ceil(this.props.totalExpensesNumber / this.props.pagination.limit);
 
-        for (let i = 0; i < totalPageNumber; i++) {
-            if (i === currentPage) {
-                pages.push(<a onClick={() => {
-                    this.handlePageChanged(i)
-                }}><b>{i + 1}</b></a>)
-
-            } else {
-                pages.push(<a onClick={() => {
-                    this.handlePageChanged(i)
-                }}>{i + 1}</a>)
-            }
+        for (let pageNumber = 1; pageNumber <= totalPageNumber; pageNumber++) {
+            paginationItems.push(<Pagination.Item key={pageNumber} active={pageNumber === currentPage} onClick={() => {
+                this.handlePageChanged(pageNumber)
+            }}>{pageNumber}</Pagination.Item>);
         }
 
-        return pages;
+        return paginationItems;
     }
 
     handlePageChanged(page) {
-        this.handleOffsetChanged(this.props.pagination.limit * page)
+        this.handleOffsetChanged(this.props.pagination.limit * (page - 1));
     }
 
     handleOffsetChanged(offset) {
@@ -39,29 +32,34 @@ class ExpensesPaginator extends React.Component {
     }
 
     handlePreviousButtonClick() {
-        let updatedOffset = this.props.pagination.offset - this.props.pagination.limit;
-        if (updatedOffset < 0) {
-            return;
-        }
+        if (this.canPrevious()) {
+            this.handleOffsetChanged(this.props.pagination.offset - this.props.pagination.limit);
 
-        this.handleOffsetChanged(updatedOffset);
+        }
     }
 
     handleNextButtonClick() {
-        let updatedOffset = this.props.pagination.offset + this.props.pagination.limit;
-        if (updatedOffset > this.props.totalExpensesNumber) {
-            return;
+        if (this.canNext()) {
+            this.handleOffsetChanged(this.props.pagination.offset + this.props.pagination.limit);
         }
+    }
 
-        this.handleOffsetChanged(updatedOffset);
+    canPrevious() {
+        return this.props.pagination.offset - this.props.pagination.limit >= 0;
+    }
+
+    canNext() {
+        return this.props.pagination.offset + this.props.pagination.limit < this.props.totalExpensesNumber;
     }
 
     render() {
         return (
             <div>
-                <Button type="button" bsStyle="primary" onClick={this.handlePreviousButtonClick}>Previous</Button>
-                {this.createPageNumbers()}
-                <Button type="button" bsStyle="primary" onClick={this.handleNextButtonClick}>Next</Button>
+                <Pagination>
+                    <Pagination.Prev onClick={this.handlePreviousButtonClick} disabled={!this.canPrevious()} />
+                    {this.createPaginationItems()}
+                    <Pagination.Next onClick={this.handleNextButtonClick} disabled={!this.canNext()} />
+                </Pagination>
             </div>
         )
     }
