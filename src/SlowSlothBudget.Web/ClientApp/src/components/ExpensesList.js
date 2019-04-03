@@ -16,6 +16,16 @@ class ExpensesList extends React.Component {
         this.handleExpenseSaveButtonClick = this.handleExpenseSaveButtonClick.bind(this);
     }
 
+    static createQueryParameters(queryObject) {
+        let queryParameters = [];
+        for (let key in queryObject) {
+            if (queryObject.hasOwnProperty(key) && queryObject[key]) {
+                queryParameters.push(encodeURIComponent(key) + '=' + encodeURIComponent(queryObject[key]));
+            }
+        }
+        return queryParameters;
+    }
+
     componentDidMount() {
         this.fetchExpenses();
     }
@@ -49,35 +59,11 @@ class ExpensesList extends React.Component {
     }
 
     buildQueryString() {
-        let filterQuery = this.getFilterParameters();
-        let paginationQuery = this.getPaginationParameters();
+        let filterQuery = ExpensesList.createQueryParameters(this.props.filter);
+        let paginationQuery = ExpensesList.createQueryParameters(this.props.pagination);
         let query = filterQuery.concat(paginationQuery);
 
         return query.join('&');
-    }
-
-    getFilterParameters() {
-        let filterParameters = [];
-        let filter = this.props.filter;
-        for (let key in filter) {
-            if (filter.hasOwnProperty(key) && filter[key]) {
-                filterParameters.push(encodeURIComponent(key) + '=' + encodeURIComponent(filter[key]));
-            }
-        }
-
-        return filterParameters;
-    }
-
-    getPaginationParameters() {
-        let paginationParameters = [];
-        let pagination = this.props.pagination;
-        for (let key in pagination) {
-            if (pagination.hasOwnProperty(key) && pagination[key]) {
-                paginationParameters.push(encodeURIComponent(key) + '=' + encodeURIComponent(pagination[key]));
-            }
-        }
-
-        return paginationParameters;
     }
 
     handleExpenseChange(expense) {
