@@ -36,6 +36,7 @@ namespace SlowSlothBudget.Web
 
             if (_environment.IsDevelopment())
             {
+				//dupa
                 services.AddAuthentication(options =>
                     {
                         options.DefaultAuthenticateScheme = DevelopmentAuthDefaults.AuthenticationScheme;
