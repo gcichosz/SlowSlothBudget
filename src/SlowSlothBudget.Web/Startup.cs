@@ -66,6 +66,8 @@ namespace SlowSlothBudget.Web
             services.AddSingleton<IExpensesMapper, ExpensesMapper>();
             services.AddSingleton<IStatisticsRepository, StatisticsRepository>();
             services.AddSingleton<IStatisticsMapper, StatisticsMapper>();
+            services.AddSingleton<ICategoriesRepository, CategoriesRepository>();
+            services.AddSingleton<ICategoriesMapper, CategoriesMapper>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
