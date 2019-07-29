@@ -3,7 +3,7 @@ import { Table } from "react-bootstrap";
 import CategoryRow from "./CategoryRow";
 import auth0Client from "../utils/Auth";
 
-class CategoriesList extends React.Component {
+class CategoriesAveragesList extends React.Component {
     constructor(props) {
         super(props);
 
@@ -42,4 +42,4 @@ class CategoriesList extends React.Component {
     }
 }
 
-export default CategoriesList;
+export default CategoriesAveragesList;
