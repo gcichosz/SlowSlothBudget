@@ -5,6 +5,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import AddExpense from "./components/AddExpense";
 import ExpensesExplorer from "./components/ExpensesExplorer";
 import YearAverages from "./components/YearAverages";
+import CategoriesHierarchy from "./components/CategoriesHierarchy";
 import Callback from "./components/Callback";
 import { Row } from "react-bootstrap";
 import './App.css';
@@ -16,6 +17,7 @@ export default () => (
         <PrivateRoute exact path="/addexpense" component={AddExpense} />
         <PrivateRoute exact path="/expensesexplorer" component={ExpensesExplorer} />
         <PrivateRoute exact path="/yearaverages" component={YearAverages} />
+        <PrivateRoute exact path="/categorieshierarchy" component={CategoriesHierarchy} />
         <Route exact path='/callback' component={Callback} />
     </Layout>
 );

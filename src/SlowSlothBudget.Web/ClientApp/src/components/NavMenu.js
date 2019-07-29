@@ -32,6 +32,11 @@ export default () => (
                             <Glyphicon glyph='stats' /> Statistics
                         </NavItem>
                     </LinkContainer>
+                    <LinkContainer exact to="/categorieshierarchy">
+                        <NavItem>
+                            <Glyphicon glyph='cog' /> Categories
+                        </NavItem>
+                    </LinkContainer>
                 </React.Fragment>
                 }
                 <LoginLink />
