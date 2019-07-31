@@ -23,7 +23,10 @@ namespace SlowSlothBudget.Web.Controllers
         [HttpGet("lastYearAverages")]
         public IActionResult LastYearAverages()
         {
+            // BART: would probably use extensions here to get claims that are used frequently.
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // BART: code duplicated a lot, would move to action filters, however all this is under authorization attribute, meaning that if userId is null there is something wrong with auth server or transform logic, probably cleaner to delete this check as it seems unnecessary.
             if (string.IsNullOrEmpty(userId))
             {
                 return Unauthorized();
