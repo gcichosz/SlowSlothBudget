@@ -34,9 +34,10 @@ namespace SlowSlothBudget.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+
+            // BART: why is this development auth needed? In theory it only sets some artifical nameidentifier in claims Identity, cant the same be achieved by setting some test user in your current 0auth IDP?
             if (_environment.IsDevelopment())
             {
-				//dupa
                 services.AddAuthentication(options =>
                     {
                         options.DefaultAuthenticateScheme = DevelopmentAuthDefaults.AuthenticationScheme;
@@ -59,8 +60,14 @@ namespace SlowSlothBudget.Web
                     {
                         options.Authority = domain;
                         options.Audience = Configuration["Auth0:ClientID"];
+
+                        //BART: maybe it would work? So you dont need to validate in requirement
+                        //options.TokenValidationParameters.ValidateIssuer = true;
+                        //options.TokenValidationParameters.ValidIssuer = "your issuer?";
                     });
             }
+
+            // BART: any reason why one repository class is transient and one is singleton?
 
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
             services.AddTransient<IExpensesRepository, ExpensesRepository>();

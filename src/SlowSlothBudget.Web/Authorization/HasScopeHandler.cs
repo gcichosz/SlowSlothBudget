@@ -8,6 +8,7 @@ namespace SlowSlothBudget.Web.Authorization
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, HasScopeRequirement requirement)
         {
+            // BART: Should read on stack if scope is not always there and probably the issuer can be validated on auth level in AddJwtBearer
             // If user does not have the scope claim, get out of here
             if (!context.User.HasClaim(c => c.Type == "scope" && c.Issuer == requirement.Issuer))
                 return Task.CompletedTask;
