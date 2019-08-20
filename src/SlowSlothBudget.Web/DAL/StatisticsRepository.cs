@@ -16,7 +16,7 @@ namespace SlowSlothBudget.Web.DAL
         {
             var client = new MongoClient(options.Value.ConnectionString);
             var database = client.GetDatabase(options.Value.DatabaseName);
-            _collection = database.GetCollection<Expense>(options.Value.CollectionName);
+            _collection = database.GetCollection<Expense>(options.Value.ExpensesCollectionName);
         }
 
         public IEnumerable<CategoryStatistics> CalculateUserLastYearAverages(string userId)
