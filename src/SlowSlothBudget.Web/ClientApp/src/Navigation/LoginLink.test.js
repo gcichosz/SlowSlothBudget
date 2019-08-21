@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import LoginLink from './LoginLink';
 
-import Auth from '../utils/Auth';
-jest.mock('../utils/Auth');
+import Auth from '../Auth/Auth';
+jest.mock('../Auth/Auth');
 
 it('renders log in to anonymous users', () => {
     Auth.isAuthenticated.mockImplementation(() => false);

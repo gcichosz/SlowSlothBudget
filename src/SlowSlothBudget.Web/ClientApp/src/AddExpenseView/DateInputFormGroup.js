@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, FormGroup, ControlLabel, FormControl, Glyphicon, HelpBlock } from 'react-bootstrap';
-import DateInput from "./DateInput";
+import DateInput from "../Shared/DateInput";
 
 class DateInputFormGroup extends React.Component {
     constructor(props) {

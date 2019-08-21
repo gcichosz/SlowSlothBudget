@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Row, FormGroup, ControlLabel, InputGroup, FormControl, Glyphicon, HelpBlock } from 'react-bootstrap';
-import AmountInput from "./AmountInput";
+import AmountInput from "../Shared/AmountInput";
 
 class AmountInputFormGroup extends React.Component {
     constructor(props) {

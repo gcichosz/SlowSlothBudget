@@ -3,7 +3,7 @@ import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import LoginLink from './LoginLink'
 import './NavMenu.css';
-import auth0Client from "../utils/Auth";
+import auth0Client from "../Auth/Auth";
 
 export default () => (
     <Navbar inverse fixedTop fluid collapseOnSelect>

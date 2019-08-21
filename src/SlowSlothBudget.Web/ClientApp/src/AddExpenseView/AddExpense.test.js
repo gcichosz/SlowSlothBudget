@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import AddExpense from './AddExpense';
 
-jest.mock('../utils/Auth');
+jest.mock('../Auth/Auth');
 
 it('validates required inputs correctly', () => {
     const wrapper = mount(<AddExpense />);

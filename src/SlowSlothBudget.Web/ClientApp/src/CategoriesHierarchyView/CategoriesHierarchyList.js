@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Table } from "react-bootstrap";
-import CategoryRow from "./CategoryRow";
-import auth0Client from "../utils/Auth";
+import CategoryRow from "../Shared/CategoryRow";
+import auth0Client from "../Auth/Auth";
 
 class CategoriesHierarchyList extends React.Component {
     constructor(props) {

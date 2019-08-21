@@ -1,11 +1,11 @@
 import * as React from "react";
 import moment from "moment";
 import { Button, ButtonToolbar, Glyphicon } from "react-bootstrap";
-import { displayFormats } from "../utils/Configuration";
-import AmountInput from "./AmountInput";
-import DateInput from "./DateInput";
-import CategoryInput from "./CategoryInput";
-import DescriptionInput from "./DescriptionInput";
+import { displayFormats } from "../Configuration/Configuration";
+import AmountInput from "../Shared/AmountInput";
+import DateInput from "../Shared/DateInput";
+import CategoryInput from "../Shared/CategoryInput";
+import DescriptionInput from "../Shared/DescriptionInput";
 
 class ExpenseRow extends React.Component {
     constructor(props) {

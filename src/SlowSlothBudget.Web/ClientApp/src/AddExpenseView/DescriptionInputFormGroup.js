@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Row, FormGroup, ControlLabel } from 'react-bootstrap';
-import DescriptionInput from "./DescriptionInput";
+import DescriptionInput from "../Shared/DescriptionInput";
 
 class DescriptionInputFormGroup extends React.Component {
     constructor(props) {

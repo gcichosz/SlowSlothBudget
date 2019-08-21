@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from "moment";
-import auth0Client from '../utils/Auth';
+import auth0Client from '../Auth/Auth';
 import { Col, Row, Alert } from 'react-bootstrap';
 import AmountInputFormGroup from './AmountInputFormGroup';
 import DateInputFormGroup from "./DateInputFormGroup";

@@ -7,7 +7,7 @@ function createEventWithValue(value) {
     return {target: {value: value}};
 }
 
-jest.mock('../utils/Auth');
+jest.mock('../Auth/Auth');
 
 it('does not accept non amount values in amount input', () => {
     const notAmountInput = 'not-amount';

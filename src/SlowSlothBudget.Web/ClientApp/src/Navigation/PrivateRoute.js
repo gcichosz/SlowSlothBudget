@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from "react-router";
-import auth0Client from "../utils/Auth";
+import auth0Client from "../Auth/Auth";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (

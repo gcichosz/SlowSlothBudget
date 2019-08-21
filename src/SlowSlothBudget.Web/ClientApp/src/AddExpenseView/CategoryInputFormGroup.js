@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Row, FormGroup, ControlLabel, FormControl, Glyphicon, HelpBlock } from 'react-bootstrap';
-import CategoryInput from "./CategoryInput";
+import CategoryInput from "../Shared/CategoryInput";
 
 class CategoryInputFormGroup extends React.Component {
     constructor(props) {

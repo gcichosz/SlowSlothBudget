@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Table } from "react-bootstrap"
 import ExpenseRow from "./ExpenseRow";
-import auth0Client from "../utils/Auth";
+import auth0Client from "../Auth/Auth";
 
 class ExpensesList extends React.Component {
     constructor(props) {

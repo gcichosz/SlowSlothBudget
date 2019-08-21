@@ -2,7 +2,7 @@ import * as React from "react";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 import 'moment/locale/en-gb';
-import { displayFormats } from "../utils/Configuration";
+import { displayFormats } from "../Configuration/Configuration";
 import 'react-datepicker/dist/react-datepicker.css';
 import './DateInput.css'
 

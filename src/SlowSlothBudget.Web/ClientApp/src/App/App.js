@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route } from "react-router";
-import Layout from './components/Layout';
-import PrivateRoute from "./components/PrivateRoute";
-import AddExpense from "./components/AddExpense";
-import ExpensesExplorer from "./components/ExpensesExplorer";
-import YearAverages from "./components/YearAverages";
-import CategoriesHierarchy from "./components/CategoriesHierarchy";
-import Callback from "./components/Callback";
+import Layout from './Layout';
+import PrivateRoute from "../Navigation/PrivateRoute";
+import AddExpense from "../AddExpenseView/AddExpense";
+import ExpensesExplorer from "../ExpensesExplorerView/ExpensesExplorer";
+import YearAverages from "../YearAveragesView/YearAverages";
+import CategoriesHierarchy from "../CategoriesHierarchyView/CategoriesHierarchy";
+import Callback from "../Auth/Callback";
 import { Row } from "react-bootstrap";
 import './App.css';
 
