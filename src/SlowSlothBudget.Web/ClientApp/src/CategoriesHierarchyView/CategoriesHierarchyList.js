@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Table } from "react-bootstrap";
-import CategoryRow from "../Shared/CategoryRow";
+import CategoryHierarchyRow from "./CategoryHierarchyRow";
 import auth0Client from "../Auth/Auth";
 
 class CategoriesHierarchyList extends React.Component {
@@ -32,8 +32,8 @@ class CategoriesHierarchyList extends React.Component {
                 </tr>
                 </thead>
                 <tbody>
-                {this.state.categories.map((category) => <CategoryRow key={category.name} name={category.name}
-                                                                      order={category.order} />)}
+                {this.state.categories.map((category) => <CategoryHierarchyRow key={category.name} name={category.name}
+                                                                             order={category.order} />)}
                 </tbody>
             </Table>
         )

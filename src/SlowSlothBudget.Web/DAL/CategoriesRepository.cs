@@ -19,7 +19,7 @@ namespace SlowSlothBudget.Web.DAL
 
         public IEnumerable<Category> FindUserCategories(string userId)
         {
-            return _collection.Find(c => c.OwnerUserId == userId).SortBy(c => c.Name).ToList();
+            return _collection.Find(c => c.OwnerUserId == userId).SortBy(c => c.Order).ToList();
         }
     }
 }

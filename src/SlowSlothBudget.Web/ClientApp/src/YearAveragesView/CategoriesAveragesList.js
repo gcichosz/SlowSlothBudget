@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Table } from "react-bootstrap";
-import CategoryRow from "../Shared/CategoryRow";
+import CategoryAverageRow from "./CategoryAverageRow";
 import auth0Client from "../Auth/Auth";
 
 class CategoriesAveragesList extends React.Component {
@@ -32,10 +32,10 @@ class CategoriesAveragesList extends React.Component {
                 </tr>
                 </thead>
                 <tbody>
-                {this.state.categories.map((category) => <CategoryRow key={category.name} name={category.name}
-                                                                      amount={category.amount} />)}
-                <CategoryRow name={"Sum"}
-                             amount={this.state.categories.reduce((accumulator, currentCategory) => accumulator + currentCategory.amount, 0)} />
+                {this.state.categories.map((category) => <CategoryAverageRow key={category.name} name={category.name}
+                                                                             amount={category.amount} />)}
+                <CategoryAverageRow name={"Sum"}
+                                    amount={this.state.categories.reduce((accumulator, currentCategory) => accumulator + currentCategory.amount, 0)} />
                 </tbody>
             </Table>
         )

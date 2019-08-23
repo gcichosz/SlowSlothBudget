@@ -1,6 +1,6 @@
 import * as React from "react";
 
-class CategoryRow extends React.Component {
+class CategoryHierarchyRow extends React.Component {
     render() {
         return (
             <tr>
@@ -8,11 +8,11 @@ class CategoryRow extends React.Component {
                     {this.props.name}
                 </td>
                 <td>
-                    {parseFloat(this.props.amount).toFixed(2)}
+                    {this.props.order}
                 </td>
             </tr>
         )
     }
 }
 
-export default CategoryRow;
+export default CategoryHierarchyRow;
