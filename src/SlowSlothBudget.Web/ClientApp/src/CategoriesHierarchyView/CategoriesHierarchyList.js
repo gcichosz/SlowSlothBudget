@@ -79,7 +79,9 @@ class CategoriesHierarchyList extends React.Component {
                 {this.state.categories.map((category) => <CategoryHierarchyRow key={category.name} name={category.name}
                                                                                order={category.order}
                                                                                onCategoryUpButtonClick={this.handleCategoryUpButtonClick}
-                                                                               onCategoryDownButtonClick={this.handleCategoryDownButtonClick} />)}
+                                                                               onCategoryDownButtonClick={this.handleCategoryDownButtonClick}
+                                                                               firstCategory={category === this.state.categories[0]}
+                                                                               lastCategory={category === this.state.categories[this.state.categories.length - 1]} />)}
                 </tbody>
             </Table>
         )

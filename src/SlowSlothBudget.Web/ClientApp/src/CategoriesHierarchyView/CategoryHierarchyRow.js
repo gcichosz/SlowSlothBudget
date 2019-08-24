@@ -28,10 +28,10 @@ class CategoryHierarchyRow extends React.Component {
                 </td>
                 <td>
                     <ButtonToolbar>
-                        <Button bsStyle="primary" onClick={this.handleCategoryUpButtonClick}><Glyphicon
-                            glyph="arrow-up" /></Button>
-                        <Button bsStyle="primary" onClick={this.handleCategoryDownButtonClick}><Glyphicon
-                            glyph="arrow-down" /></Button>
+                        <Button bsStyle="primary" disabled={this.props.firstCategory}
+                                onClick={this.handleCategoryUpButtonClick}><Glyphicon glyph="arrow-up" /></Button>
+                        <Button bsStyle="primary" disabled={this.props.lastCategory}
+                                onClick={this.handleCategoryDownButtonClick}><Glyphicon glyph="arrow-down" /></Button>
                     </ButtonToolbar>
                 </td>
             </tr>
