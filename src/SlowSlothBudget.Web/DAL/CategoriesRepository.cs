@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using SlowSlothBudget.Web.Models;
@@ -20,6 +21,13 @@ namespace SlowSlothBudget.Web.DAL
         public IEnumerable<Category> FindUserCategories(string userId)
         {
             return _collection.Find(c => c.OwnerUserId == userId).SortBy(c => c.Order).ToList();
+        }
+
+        public bool UpdateCategories(IEnumerable<Category> categories)
+        {
+            return categories.All(category => _collection.UpdateOne(c => c.Id == category.Id,
+                                                  Builders<Category>.Update.Set(c => c.Name, category.Name)
+                                                      .Set(c => c.Order, category.Order)).MatchedCount == 1);
         }
     }
 }
