@@ -24,7 +24,7 @@ export default () => (
                     </LinkContainer>
                     <LinkContainer exact to="/expensesexplorer">
                         <NavItem>
-                            <Glyphicon glyph='th-list' /> Expenses
+                            <Glyphicon glyph='usd' /> Expenses list
                         </NavItem>
                     </LinkContainer>
                     <LinkContainer exact to="/yearaverages">
@@ -34,7 +34,7 @@ export default () => (
                     </LinkContainer>
                     <LinkContainer exact to="/categorieshierarchy">
                         <NavItem>
-                            <Glyphicon glyph='cog' /> Categories
+                            <Glyphicon glyph='sort' /> Categories hierarchy
                         </NavItem>
                     </LinkContainer>
                 </React.Fragment>
