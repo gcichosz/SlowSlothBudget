@@ -6,6 +6,7 @@ import AddExpense from "../AddExpenseView/AddExpense";
 import ExpensesExplorer from "../ExpensesExplorerView/ExpensesExplorer";
 import YearAverages from "../YearAveragesView/YearAverages";
 import CategoriesHierarchy from "../CategoriesHierarchyView/CategoriesHierarchy";
+import BudgetPlan from "../BudgetPlanView/BudgetPlan";
 import Callback from "../Auth/Callback";
 import { Row } from "react-bootstrap";
 import './App.css';
@@ -18,6 +19,7 @@ export default () => (
         <PrivateRoute exact path="/expensesexplorer" component={ExpensesExplorer} />
         <PrivateRoute exact path="/yearaverages" component={YearAverages} />
         <PrivateRoute exact path="/categorieshierarchy" component={CategoriesHierarchy} />
+        <PrivateRoute exact path="/budgetplan" component={BudgetPlan} />
         <Route exact path='/callback' component={Callback} />
     </Layout>
 );

@@ -37,6 +37,11 @@ export default () => (
                             <Glyphicon glyph='sort' /> Categories hierarchy
                         </NavItem>
                     </LinkContainer>
+                    <LinkContainer exact to="/budgetplan">
+                        <NavItem>
+                            <Glyphicon glyph='piggy-bank' /> Budget plan
+                        </NavItem>
+                    </LinkContainer>
                 </React.Fragment>
                 }
                 <LoginLink />
